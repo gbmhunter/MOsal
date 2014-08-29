@@ -9,7 +9,7 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
 - Last Modified: 2014-08-29
-- Version: v2.0.0.0
+- Version: v2.0.0.1
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit project.
 - Language: C++
@@ -40,6 +40,8 @@ Currently Supported OS's
 
 - FreeRTOS
 - Linux
+
+Note it is easy and encourged for you to port this to a specific OS! Just copy the header files in :code:'port/', but replace the methods with the OS-specific code!
 
 Supported Compilers
 ===================
@@ -82,29 +84,29 @@ Basic Example Using FreeRTOS As Our Operating System
 
 ::
 
-// Include the generic OSAL API
-#include "OsalCpp/api/OsalApi.hpp"
-
-// We are using FreeRTOS, so include the OS-sepcific FreeRTOS OSAL from port/
-#include "OsalCpp/port/FreertosOsal.hpp"
-
-using namespace MbeddedNinja;
-
-int main()
-{
-	// Create a new FreeRTOS operating system abstraction layer
-	OsalNs::Osal * osal = new OsalNs::FreertosOsal();
+	// Include the generic OSAL API
+	#include "OsalCpp/api/OsalApi.hpp"
 	
-	// Note, I could just of easily typed this...
-	// OsalNs::Osal * osal = new OsalNs::LinuxOsal();
+	// We are using FreeRTOS, so include the OS-sepcific FreeRTOS OSAL from port/
+	#include "OsalCpp/port/FreertosOsal.hpp"
 	
-	// All done! 
-	// Now we can pass the generic OSAL object to other modules
-	// that need to make use of operating system features.
-	// They don't care whether we use FreeRTOS or Linux!
-	CoolModule1 * coolModule1 = new CoolModule1(osal);
-	CoolModule2 * coolModule2 = new CoolModule2(osal);
-}
+	using namespace MbeddedNinja;
+	
+	int main()
+	{
+		// Create a new FreeRTOS operating system abstraction layer
+		OsalNs::Osal * osal = new OsalNs::FreertosOsal();
+		
+		// Note, I could just of easily typed this...
+		// OsalNs::Osal * osal = new OsalNs::LinuxOsal();
+		
+		// All done! 
+		// Now we can pass the generic OSAL object to other modules
+		// that need to make use of operating system features.
+		// They don't care whether we use FreeRTOS or Linux!
+		CoolModule1 * coolModule1 = new CoolModule1(osal);
+		CoolModule2 * coolModule2 = new CoolModule2(osal);
+	}
 	
 FAQ
 ===
@@ -117,6 +119,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.0.0.1  2014-08-29 Fixed the code example formatting in the README, closes #10.
 v2.0.0.0  2014-08-29 Fixed include file extension from '.h' to '.hpp' in OsalApi.hpp. Changed website references from 'www.cladlab.com' to 'www.mbedded.ninja', closes #7. Embedded 'OsalNs' namespace in 'MbeddedNinja' namespace, closes #8. Added file 'port/LinuxOsal.hpp', which contains a Linux-port of the operating system abstraction layer, closes #6. Made methods of Osal class equal to type pure virtual to force the port-specific versions to implement all required functions. Added mutex and binary semaphore objects with port-sepcific implementations for FreeRTOS, closes #5. Renamed module from 'Osal-Cpp' to 'OsalCpp', closes #4. Added more info about module and examples to README, closes #9.
 v1.0.0.0  2014-08-07 Initial commit. Basic Osal class created with support for a thread delay and atomic entry and exit functions.
 ========= ========== ===================================================================================================
