@@ -1,8 +1,8 @@
 //!
 //! @file				Osal.c
-//! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-08-07
+//! @last-modified		2014-08-29
 //! @brief 				
 //! @details
 //!						
@@ -31,7 +31,7 @@
 //======================================== NAMESPACE ============================================//
 //===============================================================================================//
 
-namespace OsalNs
+namespace MbeddedNinja
 {
 
 	//============================================================================================//
@@ -90,6 +90,6 @@ namespace OsalNs
 
 	// none
 
-} // namespace OsalNs
+} // namespace MbeddedNinja
 
 // EOF

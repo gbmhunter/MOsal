@@ -1,9 +1,9 @@
 //!
-//! @file				Osal.hpp
+//! @file				FreertosOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created			2014-08-07
+//! @created			2014-08-29
 //! @last-modified		2014-08-29
-//! @brief 				
+//! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
 //! @details
 //!					
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_OSAL_H
-#define OSAL_CPP_OSAL_H
+#ifndef OSAL_CPP_FREERTOS_OSAL_H
+#define OSAL_CPP_FREERTOS_OSAL_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -24,10 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
-	{
-		class Osal;
-	}
+	class LinuxOsal;
 }
 
 //===============================================================================================//
@@ -35,13 +32,18 @@ namespace MbeddedNinja
 //===============================================================================================//
 
 // System headers
-#include <cstdint>		// int8_t, int32_t e.t.c
+//#include <cstdint>		// int8_t, int32_t e.t.c
 
 // User libraries
-// none
+
+// FreeRTOS includes
+#include "FreeRTOS/Source/include/FreeRTOS.h"
+#include "FreeRTOS/Source/include/task.h"
+#include "FreeRTOS/Source/include/queue.h"
+#include "FreeRTOS/Source/include/semphr.h"
 
 // User headers
-// none
+#include "../include/Osal.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -49,15 +51,14 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
+	
 	namespace OsalNs
 	{
 	
-		//! @brief		The basic OSAL object that provides an interface to OS specific functionality.
-		//! @details	Provide the OS-specific function bodies by inheriting from this class.
-		//!				This class essentially specifies the common OSAL interface that can be used on
-		//!				any operating system.
-		//! @note		OS-specific sub classes are in port/.
-		class Osal
+		//! @brief		Port-specific operating system abstraction layer for FreeRTOS.
+		//! @details	Inherits from Osal.
+		//! @note
+		class FreertosOsal : public Osal
 		{
 			
 			public:
@@ -66,20 +67,45 @@ namespace MbeddedNinja
 				//==================================== PUBLIC METHODS ==================================//
 				//======================================================================================//
 
-				//! @brief		Destructor
-				virtual ~Osal(){};
+				//! @brief		Osal constructor.
+				FreertosOsal()
+				{
 
-				//! @brief
-				virtual void EnterCriticalSection() = 0;
+				}
 
-				virtual void ExitCriticalSection() = 0;
+				~FreertosOsal()
+				{
+
+				}
+
+
+				void EnterCriticalSection()
+				{
+					taskENTER_CRITICAL();
+				}
+
+				void ExitCriticalSection()
+				{
+					taskEXIT_CRITICAL();
+				}
 
 				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
 				//!				in the interim.
-				virtual void ThreadDelayMs(double milliseconds) = 0;
+				void ThreadDelayMs(double milliseconds)
+				{
+					vTaskDelay((milliseconds/(double)portTICK_RATE_MS));
+				}
 
-				//! @brief		Returns the time since operating system started running in milliseconds.
-				virtual uint32_t GetTimeMs() = 0;
+				uint32_t GetTimeMs()
+				{
+					// Freertos uses ticks, so we need to convert the tick count to
+					// a specific number of milliseconds, knowing the ratio between the two
+					uint32_t tickCount = xTaskGetTickCount();
+
+					// portTICK_RATE_MS is actually the number of millisconds per tick!
+					return tickCount * portTICK_RATE_MS;
+
+				}
 
 				//======================================================================================//
 				//================================= PUBLIC VARIABLES ===================================//
@@ -98,15 +124,16 @@ namespace MbeddedNinja
 				//======================================================================================//
 				//================================== PRIVATE VARIABLES =================================//
 				//======================================================================================//
-				
+
+
+
 			protected:
 
 				//======================================================================================//
 				//=================================== PROTECTED METHODS ================================//
 				//======================================================================================//
 				
-				//! @brief		Protected method forces this class to be inherited.
-				Osal(){};
+				// none
 				
 				//======================================================================================//
 				//================================== PROTECTED VARIABLES ===============================//
@@ -114,11 +141,12 @@ namespace MbeddedNinja
 
 				// none
 			
-		}; // class Osal
+		}; // class FreertosOsal
 
 	} // namespace OsalNs
+
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_OSAL_H
+#endif	// #ifndef OSAL_CPP_FREERTOS_OSAL_H
 
 // EOF

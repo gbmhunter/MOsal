@@ -1,8 +1,8 @@
 //!
-//! @file				OsalApi.h
-//! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @file				OsalApi.hpp
+//! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-08-07
+//! @last-modified		2014-08-29
 //! @brief 				
 //! @details
 //!
@@ -23,7 +23,11 @@
 //===============================================================================================//
 
 // User headers
-#include "../include/Osal.h"
+#include "../include/Osal.hpp"
+#include "../include/BinarySemaphore.h"
+#include "../include/Mutex.h"
+
+// Do not include port-specific headers here, these are to be selectively included by the user.
 
 #endif	// #ifndef OSAL_CPP_OSAL_API_H
 

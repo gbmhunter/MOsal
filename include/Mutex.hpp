@@ -1,9 +1,9 @@
 //!
-//! @file				Osal.hpp
+//! @file				Mutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created			2014-08-07
+//! @created			2014-08-11
 //! @last-modified		2014-08-29
-//! @brief 				
+//! @brief 				Abstraction layer for a Mutex object.
 //! @details
 //!					
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_OSAL_H
-#define OSAL_CPP_OSAL_H
+#ifndef OSAL_CPP_MUTEX_H
+#define OSAL_CPP_MUTEX_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -26,7 +26,7 @@ namespace MbeddedNinja
 {
 	namespace OsalNs
 	{
-		class Osal;
+		class Mutex;
 	}
 }
 
@@ -51,13 +51,12 @@ namespace MbeddedNinja
 {
 	namespace OsalNs
 	{
-	
-		//! @brief		The basic OSAL object that provides an interface to OS specific functionality.
-		//! @details	Provide the OS-specific function bodies by inheriting from this class.
-		//!				This class essentially specifies the common OSAL interface that can be used on
-		//!				any operating system.
+		
+		//! @brief		Abstraction-layer mutex object that is designed to work with the OSAL (operating system
+		//!				abstraction layer).
+		//! @details	Designed to specialised for a specific OS through inheritance.
 		//! @note		OS-specific sub classes are in port/.
-		class Osal
+		class Mutex
 		{
 			
 			public:
@@ -66,20 +65,21 @@ namespace MbeddedNinja
 				//==================================== PUBLIC METHODS ==================================//
 				//======================================================================================//
 
-				//! @brief		Destructor
-				virtual ~Osal(){};
+				//! @brief		Binary semaphore destructor.
+				//! @details	Removes semaphore from OS.
+				//! @warning	Do not delete semaphore if a thread is waiting on it (i.e. it has been
+				//!				taken).
+				virtual ~Mutex(){};
 
-				//! @brief
-				virtual void EnterCriticalSection() = 0;
+				//! @brief		Blocks current thread until the mutex can be taken.
+				//! @returns	True if mutex was able to be taken before timeout period elapsed,
+				//!				otherwise false.
+				virtual bool Get(double timeoutPeriodMs) = 0;
 
-				virtual void ExitCriticalSection() = 0;
-
-				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
-				//!				in the interim.
-				virtual void ThreadDelayMs(double milliseconds) = 0;
-
-				//! @brief		Returns the time since operating system started running in milliseconds.
-				virtual uint32_t GetTimeMs() = 0;
+				//! @brief		Releases the mutex.
+				//! @returns	True if mutex was able to be given (i.e. it's been taken first),
+				//!				otherwise false.
+				virtual bool Release() = 0;
 
 				//======================================================================================//
 				//================================= PUBLIC VARIABLES ===================================//
@@ -98,27 +98,32 @@ namespace MbeddedNinja
 				//======================================================================================//
 				//================================== PRIVATE VARIABLES =================================//
 				//======================================================================================//
-				
-			protected:
 
+
+
+			protected:
+	
 				//======================================================================================//
 				//=================================== PROTECTED METHODS ================================//
 				//======================================================================================//
 				
-				//! @brief		Protected method forces this class to be inherited.
-				Osal(){};
+				//! @brief		Binary semaphore constructor.
+				//! @details	Protected to enforce inheritance.
+				Mutex(){};
 				
 				//======================================================================================//
 				//================================== PROTECTED VARIABLES ===============================//
 				//======================================================================================//
 
-				// none
+				//! @brief		Internally saves the binary semaphore handle assigned by the OS.
+				void * mutexHandle;
 			
-		}; // class Osal
+		}; // class Mutex
+
 
 	} // namespace OsalNs
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_OSAL_H
+#endif	// #ifndef OSAL_CPP_MUTEX_H
 
 // EOF
