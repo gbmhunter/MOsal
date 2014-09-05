@@ -74,6 +74,10 @@ namespace MbeddedNinja
 
 				virtual void ExitCriticalSection() = 0;
 
+				virtual void SuspendAllThreads(){};
+
+				virtual void ResumeAllThreads(){};
+
 				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
 				//!				in the interim.
 				virtual void ThreadDelayMs(double milliseconds) = 0;

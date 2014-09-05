@@ -2,7 +2,7 @@
 //! @file				FreertosOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-08-29
+//! @last-modified		2014-09-05
 //! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
 //! @details
 //!					
@@ -87,6 +87,16 @@ namespace MbeddedNinja
 				void ExitCriticalSection()
 				{
 					taskEXIT_CRITICAL();
+				}
+
+				void SuspendAllThreads()
+				{
+					vTaskSuspendAll();
+				}
+
+				void ResumeAllThreads()
+				{
+					vTaskResumeAll();
 				}
 
 				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
