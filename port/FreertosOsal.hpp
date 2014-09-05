@@ -96,7 +96,7 @@ namespace MbeddedNinja
 
 				void ResumeAllThreads()
 				{
-					vTaskResumeAll();
+					xTaskResumeAll();
 				}
 
 				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads

@@ -8,8 +8,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-08-29
-- Version: v2.0.0.1
+- Last Modified: 2014-09-05
+- Version: v3.0.2.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit project.
 - Language: C++
@@ -119,6 +119,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.0.2.0  2014-09-05 Fixed 'vTaskResumeAll()' to correct 'xTaskResumeAll()' in FreertosOsal.hpp, closes #19.
 v3.0.1.0  2014-09-05 Added 'SuspendAllThreads()' and 'ResumeAllThreads()' functions to the OsalNs::Osal class, and added overloads for the `FreertosOsal` class, closes #18.
 v3.0.0.0  2014-09-05 Created a Timer class for creating timer objects, closes #13. Added unit tests. Added Makefile. Added MUnitTestCpp and MAssertCpp modules as dependencies. Fixed forward declaration of FreertosOsal, closes #15. Put LinuxOsal in OsalNs namespace, closes #14. Added forward declaration to FreertosMutex and FreertosBinarySemaphore objects, closes #16.
 v2.0.0.1  2014-08-29 Fixed the code example formatting in the README, closes #10.
