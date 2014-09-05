@@ -2,7 +2,7 @@
 //! @file				OsalApi.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-08-29
+//! @last-modified		2014-09-05
 //! @brief 				
 //! @details
 //!
@@ -24,8 +24,9 @@
 
 // User headers
 #include "../include/Osal.hpp"
-#include "../include/BinarySemaphore.h"
-#include "../include/Mutex.h"
+#include "../include/BinarySemaphore.hpp"
+#include "../include/Mutex.hpp"
+#include "../include/Timer.hpp"
 
 // Do not include port-specific headers here, these are to be selectively included by the user.
 

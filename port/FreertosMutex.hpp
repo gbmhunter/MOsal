@@ -2,7 +2,7 @@
 //! @file				FreertosMutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-08-29
+//! @last-modified		2014-09-05
 //! @brief 				FreeRTOS implementation of a Mutex.
 //! @details
 //!						
@@ -17,6 +17,15 @@
 
 #ifndef OSAL_CPP_FREERTOS_MUTEX_H
 #define OSAL_CPP_FREERTOS_MUTEX_H
+
+//===============================================================================================//
+//==================================== FORWARD DECLARATION ======================================//
+//===============================================================================================//
+
+namespace MbeddedNinja
+{
+	class FreertosMutex;
+}
 
 //===============================================================================================//
 //========================================= INCLUDES ============================================//

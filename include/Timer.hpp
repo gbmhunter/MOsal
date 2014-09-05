@@ -1,9 +1,9 @@
 //!
-//! @file				FreertosOsal.hpp
+//! @file				Timer.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created			2014-08-29
-//! @last-modified		2014-08-29
-//! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
+//! @created			2014-09-05
+//! @last-modified		2014-09-05
+//! @brief 				Timer object.
 //! @details
 //!					
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_FREERTOS_OSAL_H
-#define OSAL_CPP_FREERTOS_OSAL_H
+#ifndef OSAL_CPP_TIMER_H
+#define OSAL_CPP_TIMER_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -24,7 +24,10 @@
 
 namespace MbeddedNinja
 {
-	class FreertosOsal;
+	namespace OsalNs
+	{
+		class Timer;
+	}
 }
 
 //===============================================================================================//
@@ -32,18 +35,13 @@ namespace MbeddedNinja
 //===============================================================================================//
 
 // System headers
-//#include <cstdint>		// int8_t, int32_t e.t.c
+#include <cstdint>		// int8_t, int32_t e.t.c
 
 // User libraries
-
-// FreeRTOS includes
-#include "FreeRTOS/Source/include/FreeRTOS.h"
-#include "FreeRTOS/Source/include/task.h"
-#include "FreeRTOS/Source/include/queue.h"
-#include "FreeRTOS/Source/include/semphr.h"
+#include "MAssertCpp/api/MAssertApi.hpp"
 
 // User headers
-#include "../include/Osal.hpp"
+#include "Osal.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -51,67 +49,59 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	
 	namespace OsalNs
 	{
-	
-		//! @brief		Port-specific operating system abstraction layer for FreeRTOS.
-		//! @details	Inherits from Osal.
+		
+		//! @brief
+		//! @details
 		//! @note
-		class FreertosOsal : public Osal
+		class Timer
 		{
 			
-			public:
+		public:
 
-				//======================================================================================//
-				//==================================== PUBLIC METHODS ==================================//
-				//======================================================================================//
+			//======================================================================================//
+			//==================================== PUBLIC METHODS ==================================//
+			//======================================================================================//
 
-				//! @brief		Osal constructor.
-				FreertosOsal()
-				{
+			static void StaticInit(Osal * osal)
+			{
+				// Make sure OSAL is not null
+				M_ASSERT(osal);
 
-				}
+				Timer::osal = osal;
+			}
 
-				~FreertosOsal()
-				{
+			//! @brief		Binary semaphore constructor.
+			//! @details	Protected to enforce inheritance.
+			Timer(uint32_t timeoutInMs)
+			{
+				if(!Timer::osal)
+					M_ASSERT_FAIL("%s", "Please call Timer::StaticInit() before creating any Timer object.");
+				this->timeoutInMs = timeoutInMs;
+			};
 
-				}
+			void Start()
+			{
+				// Get the current time from the OSAL
+				// and save as the current start time
+				this->startTimeInMs = Timer::osal->GetTimeMs();
+			}
 
+			bool IsExpired()
+			{
+				if(Timer::osal->GetTimeMs() >= this->startTimeInMs + this->timeoutInMs)
+					return true;
+				else
+					return false;
 
-				void EnterCriticalSection()
-				{
-					taskENTER_CRITICAL();
-				}
+			}
 
-				void ExitCriticalSection()
-				{
-					taskEXIT_CRITICAL();
-				}
+			//======================================================================================//
+			//================================= PUBLIC VARIABLES ===================================//
+			//======================================================================================//
 
-				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
-				//!				in the interim.
-				void ThreadDelayMs(double milliseconds)
-				{
-					vTaskDelay((milliseconds/(double)portTICK_RATE_MS));
-				}
-
-				uint32_t GetTimeMs()
-				{
-					// Freertos uses ticks, so we need to convert the tick count to
-					// a specific number of milliseconds, knowing the ratio between the two
-					uint32_t tickCount = xTaskGetTickCount();
-
-					// portTICK_RATE_MS is actually the number of millisconds per tick!
-					return tickCount * portTICK_RATE_MS;
-
-				}
-
-				//======================================================================================//
-				//================================= PUBLIC VARIABLES ===================================//
-				//======================================================================================//
-
-				// none
+			// none
 
 			private:
 
@@ -125,28 +115,30 @@ namespace MbeddedNinja
 				//================================== PRIVATE VARIABLES =================================//
 				//======================================================================================//
 
+				static Osal * osal;
 
+				uint32_t startTimeInMs;
+				uint32_t timeoutInMs;
 
 			protected:
-
+	
 				//======================================================================================//
 				//=================================== PROTECTED METHODS ================================//
 				//======================================================================================//
 				
-				// none
 				
+
 				//======================================================================================//
 				//================================== PROTECTED VARIABLES ===============================//
 				//======================================================================================//
 
-				// none
 			
-		}; // class FreertosOsal
+		}; // class timer
+
 
 	} // namespace OsalNs
-
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_FREERTOS_OSAL_H
+#endif	// #ifndef OSAL_CPP_TIMER_H
 
 // EOF

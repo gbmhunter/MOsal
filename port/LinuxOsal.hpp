@@ -2,7 +2,7 @@
 //! @file				LinuxOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-08-29
+//! @last-modified		2014-09-05
 //! @brief 				Port-specific operating system abstraction layer for Linux.
 //! @details
 //!					
@@ -47,98 +47,102 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
+	namespace OsalNs
+	{
+
+
+		//! @brief		Port-specific operating system abstraction layer for Linux.
+		//! @details	Inherits from Osal.
+		//! @note
+		class LinuxOsal : public Osal
+		{
+
+			public:
+
+				//======================================================================================//
+				//==================================== PUBLIC METHODS ==================================//
+				//======================================================================================//
+
+				//! @brief		Osal constructor.
+				LinuxOsal()
+				{
 	
-	//! @brief		Port-specific operating system abstraction layer for Linux.
-	//! @details	Inherits from Osal.
-	//! @note
-	class LinuxOsal : public Osal
-	{	
+				}
+
+				~LinuxOsal()
+				{
+
+				}
 		
-		public:
-									
-			//======================================================================================//
-			//==================================== PUBLIC METHODS ==================================//
-			//======================================================================================//
-						
-			//! @brief		Osal constructor.
-			LinuxOsal()
-			{
 
-			}
+				void EnterCriticalSection()
+				{
 
-			~LinuxOsal()
-			{
 
-			}
+				}
+
+				void ExitCriticalSection()
+				{
+
+				}
+
+				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
+				//!				in the interim.
+				void ThreadDelayMs(double milliseconds)
+				{
+
+				}
+
+				uint32_t GetTimeMs()
+				{
+
+					struct timeval te;
+					gettimeofday(&te, NULL); // get current time
+					long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // caculate milliseconds
+					// printf("milliseconds: %lld\n", milliseconds);
+					return milliseconds;
+
+				}
+
+				//======================================================================================//
+				//================================= PUBLIC VARIABLES ===================================//
+				//======================================================================================//
+
+				// none
+
+			private:
+
+				//======================================================================================//
+				//=================================== PRIVATE METHODS ==================================//
+				//======================================================================================//
+
+				// none
+
+				//======================================================================================//
+				//================================== PRIVATE VARIABLES =================================//
+				//======================================================================================//
 	
-			
-			void EnterCriticalSection()
-			{
-
-
-			}
-
-			void ExitCriticalSection()
-			{
+				void (*enterCriticalSection)();
+				void (*exitCriticalSection)();
+				void (*threadDelayMs)(double milliseconds);
 				
-			}
-			
-			//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
-			//!				in the interim.
-			void ThreadDelayMs(double milliseconds)
-			{
+			protected:
 
-			}
-
-			uint32_t GetTimeMs()
-			{
-
-				struct timeval te;
-				gettimeofday(&te, NULL); // get current time
-				long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // caculate milliseconds
-				// printf("milliseconds: %lld\n", milliseconds);
-				return milliseconds;
-
-			}
-						
-			//======================================================================================//
-			//================================= PUBLIC VARIABLES ===================================//
-			//======================================================================================//
+				//======================================================================================//
+				//=================================== PROTECTED METHODS ================================//
+				//======================================================================================//
 				
-			// none
+				// none
 				
-		private:
-						
-			//======================================================================================//
-			//=================================== PRIVATE METHODS ==================================//
-			//======================================================================================//
-			
-			// none
-			
-			//======================================================================================//
-			//================================== PRIVATE VARIABLES =================================//
-			//======================================================================================//
+				//======================================================================================//
+				//================================== PROTECTED VARIABLES ===============================//
+				//======================================================================================//
 
-			void (*enterCriticalSection)();
-			void (*exitCriticalSection)();
-			void (*threadDelayMs)(double milliseconds);
+				// none
 			
-		protected:
-
-			//======================================================================================//
-			//=================================== PROTECTED METHODS ================================//
-			//======================================================================================//
-			
-			// none
-			
-			//======================================================================================//
-			//================================== PROTECTED VARIABLES ===============================//
-			//======================================================================================//
-
-			// none
+		}; // class LinuxOsal
 		
-	}; // class LinuxOsal
-
+	} // namespace OsalNs
 
 } // namespace MbeddedNinja
 
