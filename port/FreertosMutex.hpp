@@ -2,7 +2,7 @@
 //! @file				FreertosMutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-05
+//! @last-modified		2014-09-11
 //! @brief 				FreeRTOS implementation of a Mutex.
 //! @details
 //!						
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_FREERTOS_MUTEX_H
-#define OSAL_CPP_FREERTOS_MUTEX_H
+#ifndef MOSAL_FREERTOS_MUTEX_H
+#define MOSAL_FREERTOS_MUTEX_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -38,6 +38,10 @@ namespace MbeddedNinja
 //#include <iostream>		// std::cin, cout, e.t.c
 
 // User libraries
+
+#include "MAssert/api/MAssertApi.h"
+
+// FreeRTOS
 #include "FreeRTOS/Source/include/FreeRTOS.h"
 #include "FreeRTOS/Source/include/semphr.h"
 
@@ -67,37 +71,18 @@ namespace MbeddedNinja
 				// Create mutex with FreeRTOS call
 				this->mutexHandle = xSemaphoreCreateMutex();
 
-				if(this->mutexHandle == nullptr)
-				{
-					//! @todo Add OS-independant assert
-					configASSERT(0);
-					return;
-				}
+				// Make sure the mutex was created
+				M_ASSERT(this->mutexHandle);
 			}
 
 			~FreertosMutex()
 			{
-				if(this->mutexHandle == nullptr)
-				{
-					//! @todo Add OS-independant assert
-					configASSERT(0);
-					return;
-				}
-	
 				// Handle is not null, so delete.
 				vSemaphoreDelete(this->mutexHandle);
 			}
 
 			bool Get(double timeoutPeriodMs)
 			{
-				if(this->mutexHandle == nullptr)
-				{
-					//! @todo Add OS-independant assert
-					configASSERT(0);
-					return false;
-				}
-
-				//CyDebugUart_PutString("Mutex::Get() called.");
 
 				// Take the semaphore
 				if(xSemaphoreTake(this->mutexHandle, timeoutPeriodMs/portTICK_RATE_MS) == pdPASS)
@@ -114,12 +99,6 @@ namespace MbeddedNinja
 
 			bool Release()
 			{
-				if(this->mutexHandle == nullptr)
-				{
-					//! @todo Add OS-independant assert
-					configASSERT(0);
-					return false;
-				}
 
 				if(xSemaphoreGive(this->mutexHandle) == pdPASS)
 					return true;
@@ -134,9 +113,9 @@ namespace MbeddedNinja
 			// none
 		}; // class FreertosMutex : public Mutex
 	
-	} // namespace OsalNs
+	} // namespace MOsalNs
 } // namespace MbeddedNinja
 
-#endif // #ifndef OSAL_CPP_FREERTOS_MUTEX_H
+#endif // #ifndef MOSAL_FREERTOS_MUTEX_H
 
 // EOF

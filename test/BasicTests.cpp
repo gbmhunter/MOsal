@@ -19,26 +19,9 @@
 
 using namespace MbeddedNinja;
 
-namespace OsalTestsNs
+namespace MOsalTestsNs
 {
 
-	MTEST(TimerTest)
-	{
-		// Create a Linux OSAL
-		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
-		MOsalNs::Timer timer1(2000);
-		std::cout << "Timer should now wait 2s..." << std::endl;
-		timer1.Start();
 
-		linuxOsal.ThreadDelayMs(1000);
-		std::cout << "Time remaining = '" << timer1.GetRemainingTime() << "'." << std::endl;
 
-		while(!timer1.IsExpired());
-		std::cout << "Timer expired." << std::endl;
-		// Check capacity is calculated correctly
-		//CHECK_EQUAL("Testing", "Testing1");
-	}
-
-} // namespace OsalTestsNs
+} // namespace MOsalTestsNs

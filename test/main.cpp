@@ -8,18 +8,24 @@
 //!					See README.rst in root dir for more info.
 
 // System libraries
-#include <stdio.h>
+#include <iostream>
 
 // User libraries
 #include "MUnitTest/api/MUnitTestApi.hpp"
 
 // User source
-//#include "../api/OsalApi.hpp"
+// none
 
 
 int main()
 {
+	// Give a little note about how these tests may
+	// take a few seconds to run...
+	std::cout << "Note: These timer unit tests will take some time (e.g. seconds), \r\n"
+			"as they use OS thread pauses to make sure that the timers work correctly \r\n"
+			"(e.g. expire at the right time)." << std::endl;
 
+	// Run all unit tests and return the result
 	return MbeddedNinja::TestRegister::RunAllTests();
 	
 }
