@@ -8,8 +8,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-09-11
-- Version: v3.2.0.0
+- Last Modified: 2014-09-12
+- Version: v3.3.0.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -131,6 +131,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.3.0.0  2014-09-12 Added Timer::GetState() and the definition for Timer::Reset(). Added appropriate unit tests. Added guard on Timer::Start() so that it only works when timer is in STOPPED or EXPIRED states, closes #15.
 v3.2.0.0  2014-09-11 Added Timer::Stop(), Timer::Pause(), Timer::Resume() and Timer::Reset(), closes #27. Also added some helper functions like Timer::GetRemainingTime(). Added two unit tests to test the timer pausing/resuming, and test the start/stopping. Added a 'Provided OS Utilities' section to the README. Changed the use of 'configASSERT()' to use the 'MAssert' module instead, closes #17.
 v3.1.0.0  2014-09-11 Renamed module from 'OsalCpp' to 'MOsal' to follow the naming convention of other MToolkit modules, closes #24. Renamed namespaces, classes and Makefile contents appropriately. Fixed Doxygen comments for Timer::Timer(), closes #23. Added 'const' qualifier to Timer::IsExpired(), closes #22. Listed MAssert as a dependency in the README, closes #21. Added ability to see how much time is remaining before a Timer Object exipres, closes #20. Assert failures are called if unimplemented methods of concrete OSALs are called, closes #26. Added function definition for LinuxOsal::ThreadDelayMs(), closes #25.
 v3.0.2.0  2014-09-05 Fixed 'vTaskResumeAll()' to correct 'xTaskResumeAll()' in FreertosOsal.hpp, closes #19.

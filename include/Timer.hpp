@@ -2,7 +2,7 @@
 //! @file				Timer.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-05
-//! @last-modified		2014-09-11
+//! @last-modified		2014-09-12
 //! @brief 				Timer object.
 //! @details
 //!					
@@ -61,8 +61,8 @@ namespace MbeddedNinja
 		public:
 
 			//! @brief 		Enumerates the possible states the timer can be in.
-			//! @details	Used by the function GetState().
-			enum class TimerStates
+			//! @details	Used internally to keep track of the timer state, also returned by the function GetState().
+			enum class TimerStates : uint8_t
 			{
 				//! Timer has been created but either Start() has not been called or Reset()
 				//! has been recently called.
@@ -72,7 +72,8 @@ namespace MbeddedNinja
 				RUNNING,
 				//! Timer is currently paused. It can be resumed by calling Resume().
 				PAUSED,
-				//! Timer has expired. Call Reset() to transition back to the WAITING_FOR_START state.
+				//! Timer has expired. Call Reset() to transition back to the STOPPED state,
+				//! or Start() to start the timer again.
 				EXPIRED
 			};
 
@@ -109,9 +110,8 @@ namespace MbeddedNinja
 			void Resume();
 
 			//! @brief		Resets the elapsed time back to 0, but doesn't stop the timer if it is
-			//!				running or paused (use Stop() to do this). Has the same effect as Stop()
-			//!				if the timer is in the EXPIRED state.
-			//! @details	Use to reset the "countdown".
+			//!				running or paused (use Stop() to do this).
+			//! @details	Use to reset the "countdown" while it is running.
 			void Reset();
 
 			//! @brief		Use to determine what state the Timer is in.
@@ -145,7 +145,8 @@ namespace MbeddedNinja
 				//=================================== PRIVATE METHODS ==================================//
 				//======================================================================================//
 
-				// none
+				//! @brief		Checks and changes the timers state if neccessary
+				void CheckForExpiry();
 
 				//======================================================================================//
 				//================================== PRIVATE VARIABLES =================================//

@@ -62,13 +62,16 @@ namespace MbeddedNinja
 
 		void Timer::Start()
 		{
+			// Only start the timer if it is in the STOPPED or EXPIRED states
+			if(this->timerState == TimerStates::STOPPED || this->timerState == TimerStates::EXPIRED)
+			{
+				// Get the current time from the OSAL
+				// and save as the current start time
+				this->latestRunStartTimeInMs = Timer::osal->GetTimeMs();
 
-			// Get the current time from the OSAL
-			// and save as the current start time
-			this->latestRunStartTimeInMs = Timer::osal->GetTimeMs();
-
-			// Transition to the running state
-			this->timerState = TimerStates::RUNNING;
+				// Transition to the running state
+				this->timerState = TimerStates::RUNNING;
+			}
 		}
 
 		void Timer::Stop()
@@ -80,6 +83,23 @@ namespace MbeddedNinja
 
 				// Transition to the stopped state
 				this->timerState = TimerStates::STOPPED;
+			}
+		}
+
+		void Timer::Reset()
+		{
+			if(this->timerState == TimerStates::RUNNING || this->timerState == TimerStates::PAUSED)
+			{
+				// If the timer is in a running or paused state, reset causes the timer to
+				// start running again
+				this->Stop();
+				this->Start();
+			}
+			else if(this->timerState == TimerStates::EXPIRED)
+			{
+				// Just push the timer back into the STOPPED state
+				// if it has expired
+				this->Stop();
 			}
 		}
 
@@ -117,6 +137,16 @@ namespace MbeddedNinja
 				// Transition to RUNNING state
 				this->timerState = TimerStates::RUNNING;
 			}
+		}
+
+		Timer::TimerStates Timer::GetState()
+		{
+			// Since this could be called while the timer is running,
+			// we first need to check to see if the timer has expired.
+			this->CheckForExpiry();
+
+			// Now we will be returning the correct state
+			return this->timerState;
 		}
 
 		bool Timer::IsExpired()
@@ -163,14 +193,27 @@ namespace MbeddedNinja
 
 		uint32_t Timer::GetRemainingTime() const
 		{
-			// If in exipred state, return 0, else a negative number would be returned!
-			if(this->timerState == TimerStates::EXPIRED)
+			// We have to take a snapshot of the elapsed time, because we use it multiple times in this
+			// function, at the value could change between calls to this->GetElapsedTimeMs()
+			uint32_t elapsedTimeMs = this->GetElapsedTimeMs();
+			if(this->timeoutInMs > elapsedTimeMs)
 			{
-				return 0;
+				// We havn't expired yet, so return the difference
+				return this->timeoutInMs - elapsedTimeMs;
 			}
 			else
+				// Timer must of expired, so return 0
+				return 0;
+
+		}
+
+		void Timer::CheckForExpiry()
+		{
+			// Check to see if the elapsed time has exceeded the timeout time
+			if(this->GetElapsedTimeMs() >= this->timeoutInMs)
 			{
-				return this->timeoutInMs - this->GetElapsedTimeMs();
+				// Transition to the expired state
+				this->timerState = TimerStates::EXPIRED;
 			}
 		}
 
