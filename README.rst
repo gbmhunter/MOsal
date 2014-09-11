@@ -1,6 +1,6 @@
-==============================================================
-Osal-Cpp
-==============================================================
+=====
+MOsal
+=====
 
 ----------------------------------------------------------------------
 An C++ operating system abstraction layer (OSAL) for embedded systems.
@@ -8,10 +8,10 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-09-05
-- Version: v3.0.2.0
+- Last Modified: 2014-09-11
+- Version: v3.1.0.0
 - Company: MbeddedNinja
-- Project: The Mbedded toolkit project.
+- Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
 - Compiler: GCC	
 - uC Model: Any
@@ -63,12 +63,14 @@ Installation
 Code Dependencies
 =================
 
-The following table lists all of Osal-Cpp's dependencies. Note that this EXCLUDES the dependecies relevant to the specific operating system you are going to use (i.e. excludes all dependecies of files in :code:'port/').
+The following table lists all of MOsal's dependencies. Note that this EXCLUDES the dependecies relevant to the specific operating system you are going to use (i.e. excludes all dependecies of files in :code:'port/').
 
 ====================== ==================== ======================================================================
 Dependency             Delivery             Usage
 ====================== ==================== ======================================================================
 <ctsdint>              C standard library   For platform agnostic fixed-width integers.
+MAssert                External module      Providing runtime csafety checks against this module.
+MUnitTest              External module      Framework for unit tests.
 ====================== ==================== ======================================================================
 
 Issues
@@ -85,20 +87,20 @@ Basic Example Using FreeRTOS As Our Operating System
 ::
 
 	// Include the generic OSAL API
-	#include "OsalCpp/api/OsalApi.hpp"
+	#include "MOsal/api/MOsalApi.hpp"
 	
 	// We are using FreeRTOS, so include the OS-sepcific FreeRTOS OSAL from port/
-	#include "OsalCpp/port/FreertosOsal.hpp"
+	#include "MOsal/port/FreertosOsal.hpp"
 	
 	using namespace MbeddedNinja;
 	
 	int main()
 	{
 		// Create a new FreeRTOS operating system abstraction layer
-		OsalNs::Osal * osal = new OsalNs::FreertosOsal();
+		MOsalNs::Osal * osal = new MOsalNs::FreertosOsal();
 		
-		// Note, I could just of easily typed this...
-		// OsalNs::Osal * osal = new OsalNs::LinuxOsal();
+		// Note, if I was on Linux instead, I could just of easily typed this...
+		// MOsalNs::Osal * osal = new MOsalNs::LinuxOsal();
 		
 		// All done! 
 		// Now we can pass the generic OSAL object to other modules
@@ -119,6 +121,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.1.0.0  2014-09-11 Renamed module from 'OsalCpp' to 'MOsal' to follow the naming convention of other MToolkit modules, closes #24. Renamed namespaces, classes and Makefile contents appropriately. Fixed Doxygen comments for Timer::Timer(), closes #23. Added 'const' qualifier to Timer::IsExpired(), closes #22. Listed MAssert as a dependency in the README, closes #21. Added ability to see how much time is remaining before a Timer Object exipres, closes #20. Assert failures are called if unimplemented methods of concrete OSALs are called, closes #26. Added function definition for LinuxOsal::ThreadDelayMs(), closes #25.
 v3.0.2.0  2014-09-05 Fixed 'vTaskResumeAll()' to correct 'xTaskResumeAll()' in FreertosOsal.hpp, closes #19.
 v3.0.1.0  2014-09-05 Added 'SuspendAllThreads()' and 'ResumeAllThreads()' functions to the OsalNs::Osal class, and added overloads for the `FreertosOsal` class, closes #18.
 v3.0.0.0  2014-09-05 Created a Timer class for creating timer objects, closes #13. Added unit tests. Added Makefile. Added MUnitTestCpp and MAssertCpp modules as dependencies. Fixed forward declaration of FreertosOsal, closes #15. Put LinuxOsal in OsalNs namespace, closes #14. Added forward declaration to FreertosMutex and FreertosBinarySemaphore objects, closes #16.

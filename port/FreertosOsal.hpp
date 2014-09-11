@@ -52,7 +52,7 @@ namespace MbeddedNinja
 namespace MbeddedNinja
 {
 	
-	namespace OsalNs
+	namespace MOsalNs
 	{
 	
 		//! @brief		Port-specific operating system abstraction layer for FreeRTOS.

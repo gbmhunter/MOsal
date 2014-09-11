@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 		class Osal;
 	}
@@ -49,7 +49,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 	
 		//! @brief		The basic OSAL object that provides an interface to OS specific functionality.

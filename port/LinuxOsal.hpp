@@ -2,7 +2,7 @@
 //! @file				LinuxOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-09-05
+//! @last-modified		2014-09-11
 //! @brief 				Port-specific operating system abstraction layer for Linux.
 //! @details
 //!					
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_LINUX_OSAL_H
-#define OSAL_CPP_LINUX_OSAL_H
+#ifndef MOSAL_LINUX_OSAL_H
+#define MOSAL_LINUX_OSAL_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -24,7 +24,10 @@
 
 namespace MbeddedNinja
 {
-	class LinuxOsal;
+	namespace MOsalNs
+	{
+		class LinuxOsal;
+	}
 }
 
 //===============================================================================================//
@@ -33,7 +36,8 @@ namespace MbeddedNinja
 
 // System headers
 //#include <cstdint>		// int8_t, int32_t e.t.c
-#include <sys/time.h>
+#include <sys/time.h>		// gettimeofday()
+#include <unistd.h>			// usleep(), useconds_t
 
 // User libraries
 // none
@@ -47,7 +51,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 
 
@@ -77,20 +81,20 @@ namespace MbeddedNinja
 
 				void EnterCriticalSection()
 				{
-
-
+					M_ASSERT_FAIL("%s", "Method not implemented yet!");
 				}
 
 				void ExitCriticalSection()
 				{
-
+					M_ASSERT_FAIL("%s", "Method not implemented yet!");
 				}
 
 				//! @brief		Delays a thread for a certain amount of milliseconds. Allows execution of other threads
 				//!				in the interim.
 				void ThreadDelayMs(double milliseconds)
 				{
-
+					// Call Linux API function usleep()
+					usleep((useconds_t)(milliseconds*1000));
 				}
 
 				uint32_t GetTimeMs()
@@ -142,10 +146,10 @@ namespace MbeddedNinja
 			
 		}; // class LinuxOsal
 		
-	} // namespace OsalNs
+	} // namespace MOsalNs
 
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_LINUX_OSAL_H
+#endif	// #ifndef MOSAL_LINUX_OSAL_H
 
 // EOF

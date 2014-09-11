@@ -3,8 +3,8 @@
 # @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
 # @edited 			n/a
 # @created			2014-09-05
-# @last-modified 	2014-09-05
-# @brief 			Makefile for Linux-based make, to compile the OsalCpp library, example code and run unit test code.
+# @last-modified 	2014-09-11
+# @brief 			Makefile for Linux-based make, to compile the MOsal library, example code and run unit test code.
 # @details
 #					See README in repo root dir for more info.
 
@@ -23,22 +23,22 @@ EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
 EXAMPLE_CC_FLAGS := -Wall -g -c -I. -I./lib -std=c++0x
 
-DEP_LIB_PATHS := -L ../MAssertCpp -L ../MUnitTestCpp
+DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest
 DEP_LIBS := -l MAssert -l MUnitTest
 DEP_INCLUDE_PATHS := -I../
 
 .PHONY: depend clean
 
 # All
-all: osalLib test
-	@echo "Running OsalCpp unit tests..."
-	@./test/OsalTests.elf
+all: src test
+	@echo "Running MOsal unit tests..."
+	@./test/Tests.elf
 
-#======== String-Cpp LIB ==========#
+#======== SRC ==========#
 
-osalLib : $(SRC_OBJ_FILES)
+src : $(SRC_OBJ_FILES)
 	# Make library
-	ar r libOsal.a $(SRC_OBJ_FILES)
+	ar r libMOsal.a $(SRC_OBJ_FILES)
 	
 # Generic rule for src object files
 src/%.o: src/%.cpp
@@ -55,9 +55,9 @@ src/%.o: src/%.cpp
 # ======== TEST ========
 	
 # Compiles unit test code
-test : $(TEST_OBJ_FILES) | osalLib deps
+test : $(TEST_OBJ_FILES) | src deps
 	# Compiling unit test code
-	g++ $(TEST_LD_FLAGS) -o ./test/OsalTests.elf $(TEST_OBJ_FILES) -L./ -lOsal $(DEP_LIB_PATHS) $(DEP_LIBS)
+	g++ $(TEST_LD_FLAGS) -o ./test/Tests.elf $(TEST_OBJ_FILES) -L./ -lMOsal $(DEP_LIB_PATHS) $(DEP_LIBS)
 
 # Generic rule for test object files
 test/%.o: test/%.cpp
@@ -69,29 +69,25 @@ test/%.o: test/%.cpp
 		rm -f $*.d >/dev/null 2>&1
 
 -include $(TEST_OBJ_FILES:.o=.d)
-	
-#unitTestLib:
-	# Compile UnitTest++ library (has it's own Makefile)
-#	$(MAKE) -C ./lib/UnitTest++/ all
+
+# ======== DEPENDENCIES ========
 
 deps:
-	$(MAKE) -C ../MAssertCpp/ all
-	$(MAKE) -C ../MUnitTestCpp/ all
+	$(MAKE) -C ../MAssert/ all
+	$(MAKE) -C ../MUnitTest/ all
 	
 # ====== CLEANING ======
 	
-clean: clean-ut clean-osal
-	# Clean UnitTest++ library (has it's own Makefile)
-	#$(MAKE) -C ./lib/UnitTest++/ clean
+clean: clean-ut clean-src
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
 	
-clean-osal:
+clean-src:
 	@echo " Cleaning src object files..."; $(RM) ./src/*.o
 	@echo " Cleaning src dependency files..."; $(RM) ./src/*.d
-	@echo " Cleaning OsalCpp static library..."; $(RM) ./*.a
+	@echo " Cleaning src static library..."; $(RM) ./*.a
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test dependency files..."; $(RM) ./test/*.d
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf

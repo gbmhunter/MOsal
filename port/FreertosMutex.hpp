@@ -50,7 +50,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 
 		class FreertosMutex : public Mutex

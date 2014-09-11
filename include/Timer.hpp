@@ -2,7 +2,7 @@
 //! @file				Timer.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-05
-//! @last-modified		2014-09-05
+//! @last-modified		2014-09-11
 //! @brief 				Timer object.
 //! @details
 //!					
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_TIMER_H
-#define OSAL_CPP_TIMER_H
+#ifndef MOSAL_TIMER_H
+#define MOSAL_TIMER_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 		class Timer;
 	}
@@ -38,7 +38,7 @@ namespace MbeddedNinja
 #include <cstdint>		// int8_t, int32_t e.t.c
 
 // User libraries
-#include "MAssertCpp/api/MAssertApi.hpp"
+#include "MAssert/api/MAssertApi.hpp"
 
 // User headers
 #include "Osal.hpp"
@@ -49,7 +49,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 		
 		//! @brief
@@ -64,38 +64,23 @@ namespace MbeddedNinja
 			//==================================== PUBLIC METHODS ==================================//
 			//======================================================================================//
 
-			static void StaticInit(Osal * osal)
-			{
-				// Make sure OSAL is not null
-				M_ASSERT(osal);
+			static void StaticInit(Osal * osal);
 
-				Timer::osal = osal;
-			}
+			//! @brief		Timer constructor.
+			//! @param		timeoutInMs		The timeout period for this timer. The timer starts couting once
+			//!								you call Start().
+			Timer(uint32_t timeoutInMs);
 
-			//! @brief		Binary semaphore constructor.
-			//! @details	Protected to enforce inheritance.
-			Timer(uint32_t timeoutInMs)
-			{
-				if(!Timer::osal)
-					M_ASSERT_FAIL("%s", "Please call Timer::StaticInit() before creating any Timer object.");
-				this->timeoutInMs = timeoutInMs;
-			};
+			//! @brief		Starts the timer.
+			void Start();
 
-			void Start()
-			{
-				// Get the current time from the OSAL
-				// and save as the current start time
-				this->startTimeInMs = Timer::osal->GetTimeMs();
-			}
+			//! @brief		Call this to check if the timer has expired.
+			//! @returns	True if the timer has expired, otherwise false.
+			bool IsExpired() const;
 
-			bool IsExpired()
-			{
-				if(Timer::osal->GetTimeMs() >= this->startTimeInMs + this->timeoutInMs)
-					return true;
-				else
-					return false;
-
-			}
+			//! @brief		Call to find out how much time the timer has left remaining until it exipres.
+			//! @returns	The amount of time the timer has left until it expires.
+			uint32_t GetRemainingTime() const;
 
 			//======================================================================================//
 			//================================= PUBLIC VARIABLES ===================================//
@@ -139,6 +124,6 @@ namespace MbeddedNinja
 	} // namespace OsalNs
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_TIMER_H
+#endif	// #ifndef MOSAL_TIMER_H
 
 // EOF

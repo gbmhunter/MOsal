@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 		class BinarySemaphore;
 	}
@@ -49,7 +49,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace OsalNs
+	namespace MOsalNs
 	{
 		
 		//! @brief		Abstraction-layer binary semaphore object that is designed to work with the OSAL (operating system

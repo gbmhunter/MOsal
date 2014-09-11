@@ -34,7 +34,7 @@
 namespace MbeddedNinja
 {
 
-	namespace OsalNs
+	namespace MOsalNs
 	{
 
 		//============================================================================================//
