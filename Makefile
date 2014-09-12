@@ -36,7 +36,7 @@ all: src test
 
 #======== SRC ==========#
 
-src : $(SRC_OBJ_FILES) | deps
+src : deps $(SRC_OBJ_FILES)
 	# Make library
 	ar r libMOsal.a $(SRC_OBJ_FILES)
 	
@@ -53,7 +53,8 @@ src/%.o: src/%.cpp
 
 # ======== DEPENDENCIES ========
 
-deps:
+deps :
+	# Downloading and building dependencies...
 	if [ ! -d ../MUnitTest ]; then \
 	git clone https://github.com/mbedded-ninja/MUnitTest ../MUnitTest; \
 	fi;
@@ -67,7 +68,7 @@ deps:
 # ======== TEST ========
 	
 # Compiles unit test code
-test : $(TEST_OBJ_FILES) | src deps
+test : deps $(TEST_OBJ_FILES) | src
 	# Compiling unit test code
 	g++ $(TEST_LD_FLAGS) -o ./test/Tests.elf $(TEST_OBJ_FILES) -L./ -lMOsal $(DEP_LIB_PATHS) $(DEP_LIBS)
 
@@ -87,10 +88,6 @@ test/%.o: test/%.cpp
 	
 clean: clean-ut clean-src clean-deps
 	
-clean-ut:
-	@echo " Cleaning test object files..."; $(RM) ./test/*.o
-	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
-	
 clean-src:
 	@echo " Cleaning src object files..."; $(RM) ./src/*.o
 	@echo " Cleaning src dependency files..."; $(RM) ./src/*.d
@@ -105,5 +102,9 @@ clean-deps:
 	@echo " Cleaning deps...";
 	$(MAKE) -C ../MUnitTest/ clean
 	$(MAKE) -C ../MAssert/ clean
+	
+clean-ut:
+	@echo " Cleaning test object files..."; $(RM) ./test/*.o
+	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
 
 	
