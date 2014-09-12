@@ -37,11 +37,6 @@ install:
 
   - if [ "$CXX" == "clang++" -a "$CPP14" == "0" ]; then CXX=clang++-3.3; fi
 
-  - pushd .
-  - cd ..
-  - git clone https://github.com/mbedded-ninja/MAssert
-  - "cd MAssert; make all"
-  - popd
   
 # command to run tests
 script: 
