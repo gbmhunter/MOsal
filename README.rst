@@ -6,10 +6,13 @@ MOsal
 An C++ operating system abstraction layer (OSAL) for embedded systems.
 ----------------------------------------------------------------------
 
+.. image:: https://api.travis-ci.org/mbedded-ninja/MOsal.png?branch=master   
+	:target: https://travis-ci.org/mbedded-ninja/MOsal
+
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
 - Last Modified: 2014-09-12
-- Version: v3.5.1.0
+- Version: v3.5.1.1
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -131,6 +134,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.5.1.1  2014-09-12 s
 v3.5.1.0  2014-09-12 2nd attempt at trying to get TravisCI to build correctly.
 v3.5.0.0  2014-09-12 Updated Makefile to download and build dependencies correctly.
 v3.4.1.0  2014-09-12 Added code to .travis.yml file to download the MAssert dependency before building, to try and fix the TravisCI error.
