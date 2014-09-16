@@ -2,7 +2,7 @@
 //! @file				Timer.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-05
-//! @last-modified		2014-09-12
+//! @last-modified		2014-09-16
 //! @brief 				Timer object.
 //! @details
 //!					
@@ -34,13 +34,13 @@ namespace MbeddedNinja
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
-// System headers
+//===== SYSTEM LIBRARIES =====//
 #include <cstdint>		// int8_t, int32_t e.t.c
 
-// User libraries
+//===== USER LIBRARIES =====//
 #include "MAssert/api/MAssertApi.hpp"
 
-// User headers
+//===== USER SOURCE =====//
 #include "Osal.hpp"
 
 //===============================================================================================//
@@ -128,10 +128,11 @@ namespace MbeddedNinja
 			//!				just return a number higher than timeoutInMs.
 			uint32_t GetElapsedTimeMs() const;
 
-			//! @brief		Call to find out how much time the timer has left remaining until it expires.
-			//! @returns	The amount of time the timer has left until it expires. Returns 0 if the timer
-			//! 			has expired.
-			uint32_t GetRemainingTime() const;
+			//! @brief		Call to find out how much time (in milliseconds) the timer has left
+			//!				remaining until it expires.
+			//! @returns	The amount of time the timer has left until it expires, in milliseconds.
+			//!				Returns 0 if the timer has expired.
+			uint32_t GetRemainingTimeMs() const;
 
 			//======================================================================================//
 			//================================= PUBLIC VARIABLES ===================================//

@@ -2,7 +2,7 @@
 //! @file				Timer.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-05
-//! @last-modified		2014-09-11
+//! @last-modified		2014-09-16
 //! @brief 				Timer object.
 //! @details
 //!						
@@ -15,16 +15,16 @@
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-// System libraries
+//===== SYSTEM LIBRARIES =====//
 #include <cstdint>		// int8_t, int32_t e.t.c
 
 //! @debug
 //#include <iostream>		// std::cout, std::endl
 
-// User libraries
+//===== USER LIBRARIES =====//
 // none
 
-// User source
+//===== USER SOURCE =====//
 #include "../include/Timer.hpp"
 
 //===============================================================================================//
@@ -191,14 +191,14 @@ namespace MbeddedNinja
 
 		}
 
-		uint32_t Timer::GetRemainingTime() const
+		uint32_t Timer::GetRemainingTimeMs() const
 		{
 			// We have to take a snapshot of the elapsed time, because we use it multiple times in this
 			// function, at the value could change between calls to this->GetElapsedTimeMs()
 			uint32_t elapsedTimeMs = this->GetElapsedTimeMs();
 			if(this->timeoutInMs > elapsedTimeMs)
 			{
-				// We havn't expired yet, so return the difference
+				// We havn't expired yet, so return the difference in ms
 				return this->timeoutInMs - elapsedTimeMs;
 			}
 			else

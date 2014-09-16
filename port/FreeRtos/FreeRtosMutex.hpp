@@ -1,8 +1,8 @@
 //!
-//! @file				FreertosMutex.hpp
+//! @file				FreeRtosMutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-11
+//! @last-modified		2014-09-16
 //! @brief 				FreeRTOS implementation of a Mutex.
 //! @details
 //!						
@@ -24,7 +24,10 @@
 
 namespace MbeddedNinja
 {
-	class FreertosMutex;
+	namespace MOsalNs
+	{
+		class FreeRtosMutex;
+	}
 }
 
 //===============================================================================================//
@@ -46,7 +49,7 @@ namespace MbeddedNinja
 #include "FreeRTOS/Source/include/semphr.h"
 
 // User source
-#include "../include/Mutex.h"
+#include "../../include/Mutex.h"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -57,7 +60,7 @@ namespace MbeddedNinja
 	namespace MOsalNs
 	{
 
-		class FreertosMutex : public Mutex
+		class FreeRtosMutex : public Mutex
 		{
 
 		public:
@@ -66,7 +69,7 @@ namespace MbeddedNinja
 			//=============================== PUBLIC METHOD DEFINITIONS ==================================//
 			//============================================================================================//
 
-			FreertosMutex()
+			FreeRtosMutex()
 			{
 				// Create mutex with FreeRTOS call
 				this->mutexHandle = xSemaphoreCreateMutex();
@@ -75,7 +78,7 @@ namespace MbeddedNinja
 				M_ASSERT(this->mutexHandle);
 			}
 
-			~FreertosMutex()
+			~FreeRtosMutex()
 			{
 				// Handle is not null, so delete.
 				vSemaphoreDelete(this->mutexHandle);
@@ -83,7 +86,6 @@ namespace MbeddedNinja
 
 			bool Get(double timeoutPeriodMs)
 			{
-
 				// Take the semaphore
 				if(xSemaphoreTake(this->mutexHandle, timeoutPeriodMs/portTICK_RATE_MS) == pdPASS)
 				{
@@ -111,7 +113,7 @@ namespace MbeddedNinja
 			//============================================================================================//
 		
 			// none
-		}; // class FreertosMutex : public Mutex
+		}; // class FreeRtosMutex : public Mutex
 	
 	} // namespace MOsalNs
 } // namespace MbeddedNinja

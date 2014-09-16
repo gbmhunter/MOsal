@@ -1,8 +1,8 @@
 //!
-//! @file				FreertosBinarySemaphore.hpp
+//! @file				FreeRtosBinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-05
+//! @last-modified		2014-09-16
 //! @brief 				FreeRTOS implementation of a BinarySemaphore.
 //! @details
 //!						
@@ -24,25 +24,27 @@
 
 namespace MbeddedNinja
 {
-	class FreertosBinarySemaphore;
+	namespace MOsalNs
+	{
+		class FreeRtosBinarySemaphore;
+	}
 }
 
 //===============================================================================================//
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-// System libraries
-//#include <cstdint>		// int8_t, int32_t e.t.c
-//#include <cstdio>			// snprintf()
-//#include <cstdlib>		// realloc(), malloc(), free()
-//#include <iostream>		// std::cin, cout, e.t.c
+//===== SYSTEM LIBRARIES =====//
+//none
 
-// User libraries
+//===== USER LIBRARIES =====//
+
+// FreeRTOS
 #include "FreeRTOS/Source/include/FreeRTOS.h"
 #include "FreeRTOS/Source/include/semphr.h"
 
-// User source
-#include "../include/BinarySemaphore.h"
+//===== USER SOURCE =====//
+#include "../../include/BinarySemaphore.h"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -57,41 +59,26 @@ namespace MbeddedNinja
 		//=============================== PUBLIC METHOD DEFINITIONS ==================================//
 		//============================================================================================//
 
-		class FreertosBinarySemaphore : public BinarySemaphore
+		class FreeRtosBinarySemaphore : public BinarySemaphore
 		{
 			public:
 
-				FreertosBinarySemaphore()
+				FreeRtosBinarySemaphore()
 				{
 					this->binarySemaphoreHandle = xSemaphoreCreateBinary();
 
-					if(this->binarySemaphoreHandle == nullptr)
-					{
-						//! @todo Add assert
-						return;
-					}
+					// Check to make sure semaphore was created successfully
+					M_ASSERT(this->binarySemaphoreHandle);
 				}
 
-				~FreertosBinarySemaphore()
+				~FreeRtosBinarySemaphore()
 				{
-					if(this->binarySemaphoreHandle == nullptr)
-					{
-						//! @todo Add assert
-						return;
-					}
-
 					// Handle is not null, so delete.
 					vSemaphoreDelete(this->binarySemaphoreHandle);
 				}
 
 				bool Take(double timeoutPeriodMs)
 				{
-					if(this->binarySemaphoreHandle == nullptr)
-					{
-						//! @todo Add assert
-						return false;
-					}
-
 					// Take the semaphore
 					if(xSemaphoreTake(this->binarySemaphoreHandle, timeoutPeriodMs/portTICK_RATE_MS) == pdPASS)
 						return true;
@@ -101,12 +88,6 @@ namespace MbeddedNinja
 
 				bool Give()
 				{
-					if(this->binarySemaphoreHandle == nullptr)
-					{
-						//! @todo Add assert
-						return false;
-					}
-
 					if(xSemaphoreGive(this->binarySemaphoreHandle) == pdPASS)
 						return true;
 					else
@@ -118,7 +99,7 @@ namespace MbeddedNinja
 			//============================================================================================//
 		
 			// none
-		}; // class FreertosBinarySemaphore : public BinarySemaphore
+		}; // class FreeRtosBinarySemaphore : public BinarySemaphore
 	
 	} // namespace OsalNs
 } // namespace MbeddedNinja

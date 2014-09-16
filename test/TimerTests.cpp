@@ -2,7 +2,7 @@
 //! @file 			TimerTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created		2014-09-11
-//! @last-modified 	2014-09-12
+//! @last-modified 	2014-09-16
 //! @brief 			Contains unit tests which test the Timer class.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -15,7 +15,7 @@
 
 // User source
 #include "../api/MOsalApi.hpp"
-#include "../port/LinuxOsal.hpp"
+#include "../port/Linux/LinuxOsal.hpp"
 
 using namespace MbeddedNinja;
 

@@ -2,7 +2,7 @@
 //! @file				LinuxOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-09-11
+//! @last-modified		2014-09-16
 //! @brief 				Port-specific operating system abstraction layer for Linux.
 //! @details
 //!					
@@ -43,7 +43,7 @@ namespace MbeddedNinja
 // none
 
 // User headers
-#include "../include/Osal.hpp"
+#include "../../include/Osal.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//

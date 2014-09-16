@@ -1,8 +1,8 @@
 //!
-//! @file				FreertosOsal.hpp
+//! @file				FreeRtosOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-09-05
+//! @last-modified		2014-09-16
 //! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
 //! @details
 //!					
@@ -24,7 +24,10 @@
 
 namespace MbeddedNinja
 {
-	class FreertosOsal;
+	namespace MOsalNs
+	{
+		class FreeRtosOsal;
+	}
 }
 
 //===============================================================================================//
@@ -43,7 +46,7 @@ namespace MbeddedNinja
 #include "FreeRTOS/Source/include/semphr.h"
 
 // User headers
-#include "../include/Osal.hpp"
+#include "../../include/Osal.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -58,7 +61,7 @@ namespace MbeddedNinja
 		//! @brief		Port-specific operating system abstraction layer for FreeRTOS.
 		//! @details	Inherits from Osal.
 		//! @note
-		class FreertosOsal : public Osal
+		class FreeRtosOsal : public Osal
 		{
 			
 			public:
@@ -68,12 +71,12 @@ namespace MbeddedNinja
 				//======================================================================================//
 
 				//! @brief		Osal constructor.
-				FreertosOsal()
+				FreeRtosOsal()
 				{
 
 				}
 
-				~FreertosOsal()
+				~FreeRtosOsal()
 				{
 
 				}
@@ -151,10 +154,9 @@ namespace MbeddedNinja
 
 				// none
 			
-		}; // class FreertosOsal
+		}; // class FreeRtosOsal
 
 	} // namespace OsalNs
-
 } // namespace MbeddedNinja
 
 #endif	// #ifndef OSAL_CPP_FREERTOS_OSAL_H
