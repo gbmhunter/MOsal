@@ -11,8 +11,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-09-16
-- Version: v3.5.2.0
+- Last Modified: 2014-09-17
+- Version: v3.6.0.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -38,6 +38,7 @@ Provided OS Utilities
 
 - Mutexs
 - Semaphores
+- Queues
 - System time
 - Timers
 
@@ -71,6 +72,7 @@ Installation
 - FreertosOsal.hpp
 - FreertosMutex.hpp
 - FreertosBinarySemaphore.hpp
+- FreertosQueue.hpp
 
 
 Code Dependencies
@@ -134,6 +136,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.6.0.0  2014-09-17 Added abstract Queue class and FreeRTOS implementation (the FreeRtosQueue class), closes #34.
 v3.5.2.0  2014-09-16 Changed 'Timer::GetRemainingTime()' to 'Timer::GetRemainingTimeMs()' as to indicate the units, closes #31. Capaitilised the R in Freertos in all code and filenames, closes #30. Fixed incorrectly nested forward declarations in FreeRtos port files, closes #32. Added asserts to 'FreertosBinarySemaphore' class, closes #29. Sorted port-specific code by the respective platform and placed in separate folders, closes #33.
 v3.5.1.1  2014-09-12 Added 'Build Passing' image to the top of the README, closes #28.
 v3.5.1.0  2014-09-12 2nd attempt at trying to get TravisCI to build correctly.

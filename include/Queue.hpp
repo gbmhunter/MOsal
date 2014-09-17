@@ -1,9 +1,9 @@
 //!
-//! @file				Mutex.hpp
+//! @file				Queue.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created			2014-08-11
-//! @last-modified		2014-08-29
-//! @brief 				Abstraction layer for a Mutex object.
+//! @created			2014-09-17
+//! @last-modified		2014-09-17
+//! @brief 				Abstraction layer for a Queue object.
 //! @details
 //!					
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef MOSAL_MUTEX_H
-#define MOSAL_MUTEX_H
+#ifndef MOSAL_QUEUE_H
+#define MOSAL_QUEUE_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -26,7 +26,8 @@ namespace MbeddedNinja
 {
 	namespace MOsalNs
 	{
-		class Mutex;
+		template < typename QueueDataT >
+		class Queue;
 	}
 }
 
@@ -52,11 +53,12 @@ namespace MbeddedNinja
 	namespace MOsalNs
 	{
 		
-		//! @brief		Abstraction-layer mutex object that is designed to work with the OSAL (operating system
+		//! @brief		Abstraction-layer queue object that is designed to work with the OSAL (operating system
 		//!				abstraction layer).
 		//! @details	Designed to specialised for a specific OS through inheritance.
 		//! @note		OS-specific sub classes are in port/.
-		class Mutex
+		template < typename QueueDataT >
+		class Queue
 		{
 			
 			public:
@@ -65,21 +67,21 @@ namespace MbeddedNinja
 				//==================================== PUBLIC METHODS ==================================//
 				//======================================================================================//
 
-				//! @brief		Binary semaphore destructor.
-				//! @details	Removes semaphore from OS.
-				//! @warning	Do not delete semaphore if a thread is waiting on it (i.e. it has been
+				//! @brief		Queue destructor.
+				//! @details	Removes queue from OS.
+				//! @warning	Do not delete queue if a thread is waiting on it (i.e. it has been
 				//!				taken).
-				virtual ~Mutex(){};
+				virtual ~Queue(){};
 
-				//! @brief		Blocks current thread until the mutex can be taken.
-				//! @returns	True if mutex was able to be taken before timeout period elapsed,
+				//! @brief		Blocks current thread until data can be received (taken) from queue.
+				//! @returns	True if data was able to be taken from queue before timeout period elapsed,
 				//!				otherwise false.
-				virtual bool Get(double timeoutPeriodMs) = 0;
+				virtual bool Receive(QueueDataT * queueData, float timeoutPeriodMs) = 0;
 
-				//! @brief		Releases the mutex.
-				//! @returns	True if mutex was able to be given (i.e. it's been taken first),
+				//! @brief		Places data onto the queue.
+				//! @returns	True if data was able to be placed on the queue,
 				//!				otherwise false.
-				virtual bool Release() = 0;
+				virtual bool Send(const QueueDataT * queueData, float timeoutPeriodMs) = 0;
 
 				//======================================================================================//
 				//================================= PUBLIC VARIABLES ===================================//
@@ -103,27 +105,27 @@ namespace MbeddedNinja
 
 			protected:
 	
-				//======================================================================================//
+				//=====================================================================================//
 				//=================================== PROTECTED METHODS ================================//
 				//======================================================================================//
 				
 				//! @brief		Binary semaphore constructor.
 				//! @details	Protected to enforce inheritance.
-				Mutex(){};
+				Queue(){};
 				
 				//======================================================================================//
 				//================================== PROTECTED VARIABLES ===============================//
 				//======================================================================================//
 
 				//! @brief		Internally saves the binary semaphore handle assigned by the OS.
-				void * mutexHandle;
+				void * queueHandle;
 			
-		}; // class Mutex
+		}; // class Queue
 
 
 	} // namespace OsalNs
 } // namespace MbeddedNinja
 
-#endif	// #ifndef MOSAL_MUTEX_H
+#endif	// #ifndef MOSAL_QUEUE_H
 
 // EOF
