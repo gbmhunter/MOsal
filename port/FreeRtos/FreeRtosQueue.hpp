@@ -91,11 +91,11 @@ namespace MbeddedNinja
 			//!						become available. A negative number will cause Receive() to wait indefinitely.
 			bool Receive(QueueDataT * queueData, float timeoutPeriodMs)
 			{
-				// Convert double into TickType_t
-				TickType_t tickTypeTimeoutPeriodInTicks = (TickType_t)timeoutPeriodMs;
+				// For storing conversion of float into TickType_t
+				TickType_t tickTypeTimeoutPeriodInTicks;
 
 				// If it less than 0, the user wants to wait indefinitely
-				if(tickTypeTimeoutPeriodInTicks < 0)
+				if(timeoutPeriodMs < 0)
 				{
 					// Overwrite with special constant
 					// (note that the FreeRTOS macro "INCLUDE_vTaskSuspend" has to be set to 1)
