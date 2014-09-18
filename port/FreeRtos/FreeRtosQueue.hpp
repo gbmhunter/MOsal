@@ -2,7 +2,7 @@
 //! @file				FreeRtosQueue.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-17
-//! @last-modified		2014-09-17
+//! @last-modified		2014-09-18
 //! @brief 				FreeRTOS implementation of a Queue.
 //! @details
 //!						
@@ -123,7 +123,7 @@ namespace MbeddedNinja
 			//! @param [out]	queueData	A pointer to the data you wish to copy onto the queue.
 			//! @param [in]		timeoutPeriodMs		The maximum time (in ms) you want to wait for the queue to have
 			//!						space available. A negative number will cause Send() to wait indefinitely.
-			bool Send(QueueDataT * queueData, float timeoutPeriodMs)
+			bool Send(const QueueDataT * queueData, float timeoutPeriodMs)
 			{
 				// Convert double into TickType_t
 				TickType_t tickTypeTimeoutPeriodInTicks = (TickType_t)timeoutPeriodMs;
