@@ -2,7 +2,7 @@
 //! @file				FreeRtosOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-09-16
+//! @last-modified		2014-09-18
 //! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
 //! @details
 //!					
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_FREERTOS_OSAL_H
-#define OSAL_CPP_FREERTOS_OSAL_H
+#ifndef MOSAL_FREERTOS_OSAL_H
+#define MOSAL_FREERTOS_OSAL_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -159,6 +159,6 @@ namespace MbeddedNinja
 	} // namespace OsalNs
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_FREERTOS_OSAL_H
+#endif	// #ifndef MOSAL_FREERTOS_OSAL_H
 
 // EOF

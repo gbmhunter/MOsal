@@ -2,7 +2,7 @@
 //! @file				BinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-08-29
+//! @last-modified		2014-09-18
 //! @brief 				
 //! @details
 //!					
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_BINARY_SEMAPHORE_H
-#define OSAL_CPP_BINARY_SEMAPHORE_H
+#ifndef MOSAL_BINARY_SEMAPHORE_H
+#define MOSAL_BINARY_SEMAPHORE_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -126,6 +126,6 @@ namespace MbeddedNinja
 	} // namespace OsalNs
 } // namespace MbeddedNinja
 
-#endif	// #ifndef OSAL_CPP_BINARY_SEMAPHORE_H
+#endif	// #ifndef MOSAL_BINARY_SEMAPHORE_H
 
 // EOF

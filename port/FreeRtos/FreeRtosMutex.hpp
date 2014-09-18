@@ -60,6 +60,8 @@ namespace MbeddedNinja
 	namespace MOsalNs
 	{
 
+		//! @brief		A FreeRTOS implementation of a Mutex.
+		//! @details	A FreeRTOS mutex is a binary semaphore with a priority inheritance mechanism. A FreeRTOS mutex is good for protecting a shared resource. A mutex is designed to be got and released from the same thread.
 		class FreeRtosMutex : public Mutex
 		{
 

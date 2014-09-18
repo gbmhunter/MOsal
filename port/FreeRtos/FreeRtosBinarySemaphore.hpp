@@ -2,7 +2,7 @@
 //! @file				FreeRtosBinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-16
+//! @last-modified		2014-09-18
 //! @brief 				FreeRTOS implementation of a BinarySemaphore.
 //! @details
 //!						
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef OSAL_CPP_FREERTOS_BINARY_SEMAPHORE_H
-#define OSAL_CPP_FREERTOS_BINARY_SEMAPHORE_H
+#ifndef MOSAL_FREERTOS_BINARY_SEMAPHORE_H
+#define MOSAL_FREERTOS_BINARY_SEMAPHORE_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -59,10 +59,13 @@ namespace MbeddedNinja
 		//=============================== PUBLIC METHOD DEFINITIONS ==================================//
 		//============================================================================================//
 
+		//! @brief		A FreeRTOS implementation of a binary semaphore.
+		//! @details	A FreeRTOS binary semaphore is useful for implementing synchronisation between two threads (or one thread and a interrupt). It does not have a priority inheritance mechanism and is not designed for protecting a shared resource (use a FreeRtosMutex object for that purpose).
 		class FreeRtosBinarySemaphore : public BinarySemaphore
 		{
 			public:
 
+				//! @brief		Default constructor. Creates and registers a binary semaphore with the FreeRTOS kernel.
 				FreeRtosBinarySemaphore()
 				{
 					this->binarySemaphoreHandle = xSemaphoreCreateBinary();
@@ -71,6 +74,7 @@ namespace MbeddedNinja
 					M_ASSERT(this->binarySemaphoreHandle);
 				}
 
+				//! @brief		Destructor. Removes and deletes the binary semaphore from the FreeRTOS kernel.
 				~FreeRtosBinarySemaphore()
 				{
 					// Handle is not null, so delete.
@@ -104,6 +108,6 @@ namespace MbeddedNinja
 	} // namespace OsalNs
 } // namespace MbeddedNinja
 
-#endif // #ifndef OSAL_CPP_FREERTOS_BINARY_SEMAPHORE_H
+#endif // #ifndef MOSAL_FREERTOS_BINARY_SEMAPHORE_H
 
 // EOF
