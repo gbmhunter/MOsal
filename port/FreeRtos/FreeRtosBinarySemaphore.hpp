@@ -81,10 +81,28 @@ namespace MbeddedNinja
 					vSemaphoreDelete(this->binarySemaphoreHandle);
 				}
 
-				bool Take(double timeoutPeriodMs)
+				bool Take(float timeoutPeriodMs)
 				{
+					// For storing conversion of float into TickType_t
+					TickType_t tickTypeTimeoutPeriodInTicks;
+
+					// If it less than 0, the user wants to wait indefinitely
+					if(timeoutPeriodMs < 0)
+					{
+						// Overwrite with special constant
+						// (note that the FreeRTOS macro "INCLUDE_vTaskSuspend" has to be set to 1)
+						tickTypeTimeoutPeriodInTicks = portMAX_DELAY;
+					}
+					else
+					{
+						// User has specified non-negative timeout, so convert this from ms to ticks
+						tickTypeTimeoutPeriodInTicks = (TickType_t)(timeoutPeriodMs/(float)portTICK_RATE_MS);
+					}
+
 					// Take the semaphore
-					if(xSemaphoreTake(this->binarySemaphoreHandle, timeoutPeriodMs/portTICK_RATE_MS) == pdPASS)
+					if(xSemaphoreTake(
+							this->binarySemaphoreHandle,
+							tickTypeTimeoutPeriodInTicks) == pdPASS)
 						return true;
 					else
 						return false;

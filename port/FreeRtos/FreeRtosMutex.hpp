@@ -2,7 +2,7 @@
 //! @file				FreeRtosMutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-16
+//! @last-modified		2014-09-18
 //! @brief 				FreeRTOS implementation of a Mutex.
 //! @details
 //!						
@@ -86,10 +86,27 @@ namespace MbeddedNinja
 				vSemaphoreDelete(this->mutexHandle);
 			}
 
-			bool Get(double timeoutPeriodMs)
+			bool Get(float timeoutPeriodMs)
 			{
+				// For storing conversion of float into TickType_t
+				TickType_t tickTypeTimeoutPeriodInTicks;
+
+				// If it less than 0, the user wants to wait indefinitely
+				if(timeoutPeriodMs < 0)
+				{
+					// Overwrite with special constant
+					// (note that the FreeRTOS macro "INCLUDE_vTaskSuspend" has to be set to 1)
+					tickTypeTimeoutPeriodInTicks = portMAX_DELAY;
+				}
+				else
+				{
+					// User has specified non-negative timeout, so convert this from ms to ticks
+					tickTypeTimeoutPeriodInTicks = (TickType_t)(timeoutPeriodMs/(float)portTICK_RATE_MS);
+
+				}
+
 				// Take the semaphore
-				if(xSemaphoreTake(this->mutexHandle, timeoutPeriodMs/portTICK_RATE_MS) == pdPASS)
+				if(xSemaphoreTake(this->mutexHandle, tickTypeTimeoutPeriodInTicks) == pdPASS)
 				{
 					//CyDebugUart_PutString("Mutex obtained.");
 					return true;

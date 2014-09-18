@@ -78,7 +78,7 @@ namespace MbeddedNinja
 				//! @brief		Blocks current thread until the binary semaphore can be taken.
 				//! @returns	True if semaphore was able to be taken before timeout period elapsed,
 				//!				otherwise false.
-				virtual bool Take(double timeoutPeriodMs) = 0;
+				virtual bool Take(float timeoutPeriodMs) = 0;
 
 				//! @brief		Releases the binary semaphore.
 				//! @returns	True if semaphore was able to be given (i.e. it's been taken first),

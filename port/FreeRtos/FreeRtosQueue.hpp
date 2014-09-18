@@ -104,7 +104,7 @@ namespace MbeddedNinja
 				else
 				{
 					// User has specified non-negative timeout, so convert this from ms to ticks
-					tickTypeTimeoutPeriodInTicks = tickTypeTimeoutPeriodInTicks/portTICK_RATE_MS;
+					tickTypeTimeoutPeriodInTicks = (TickType_t)(timeoutPeriodMs/(float)portTICK_RATE_MS);
 				}
 
 				// Wait for queue to have data

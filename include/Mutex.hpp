@@ -2,7 +2,7 @@
 //! @file				Mutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-08-29
+//! @last-modified		2014-09-18
 //! @brief 				Abstraction layer for a Mutex object.
 //! @details
 //!					
@@ -74,7 +74,7 @@ namespace MbeddedNinja
 				//! @brief		Blocks current thread until the mutex can be taken.
 				//! @returns	True if mutex was able to be taken before timeout period elapsed,
 				//!				otherwise false.
-				virtual bool Get(double timeoutPeriodMs) = 0;
+				virtual bool Get(float timeoutPeriodMs) = 0;
 
 				//! @brief		Releases the mutex.
 				//! @returns	True if mutex was able to be given (i.e. it's been taken first),

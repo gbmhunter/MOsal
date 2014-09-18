@@ -12,7 +12,7 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
 - Last Modified: 2014-09-18
-- Version: v3.6.3.0
+- Version: v3.6.4.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -136,6 +136,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.6.4.0  2014-09-18 Fixed bugs in both 'FreeRtosMutex' and 'FreeRtosBinarySemaphore' where negative values passed as timeouts are not handled correctly, closes #38. Change all usage of doubles to floats, closes #39.
 v3.6.3.0  2014-09-18 Fixed bug in FreeRtosQueue::Receive() where double is type cast to an unsigned type then checked if negative, closes #37.
 v3.6.2.0  2014-09-18 Added comments to FreeRtosMutex and FreeRtosBinarySemaphore classes about their intended use, closes #36. Fixed up the names of a few of the header guards.
 v3.6.1.0  2014-09-18 Added 'const' qualifier to 'FreeRtosQueue::Send()', closes #35.
