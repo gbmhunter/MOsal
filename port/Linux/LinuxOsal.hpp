@@ -2,7 +2,7 @@
 //! @file				LinuxOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-09-16
+//! @last-modified		2014-10-08
 //! @brief 				Port-specific operating system abstraction layer for Linux.
 //! @details
 //!					
@@ -34,15 +34,15 @@ namespace MbeddedNinja
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
-// System headers
+//===== SYSTEM LIBRARIES =====//
 //#include <cstdint>		// int8_t, int32_t e.t.c
 #include <sys/time.h>		// gettimeofday()
 #include <unistd.h>			// usleep(), useconds_t
 
-// User libraries
-// none
+//===== USER LIBRARIES =====//
+#include "MAssert/api/MAssertApi.hpp"
 
-// User headers
+//===== USER SOURCE =====//
 #include "../../include/Osal.hpp"
 
 //===============================================================================================//
@@ -56,8 +56,7 @@ namespace MbeddedNinja
 
 
 		//! @brief		Port-specific operating system abstraction layer for Linux.
-		//! @details	Inherits from Osal.
-		//! @note
+		//! @note		Inherits from Osal. See the Osal class for method descriptions.
 		class LinuxOsal : public Osal
 		{
 
@@ -70,12 +69,12 @@ namespace MbeddedNinja
 				//! @brief		Osal constructor.
 				LinuxOsal()
 				{
-	
+					// No setup required
 				}
 
 				~LinuxOsal()
 				{
-
+					// No tear down required
 				}
 		
 
@@ -85,6 +84,18 @@ namespace MbeddedNinja
 				}
 
 				void ExitCriticalSection()
+				{
+					M_ASSERT_FAIL("%s", "Method not implemented yet!");
+				}
+
+				//! @brief		Suspends all threads.
+				void SuspendAllThreads()
+				{
+					M_ASSERT_FAIL("%s", "Method not implemented yet!");
+				}
+
+				//! @brief		Resumes all threads.
+				void ResumeAllThreads()
 				{
 					M_ASSERT_FAIL("%s", "Method not implemented yet!");
 				}
@@ -102,7 +113,7 @@ namespace MbeddedNinja
 
 					struct timeval te;
 					gettimeofday(&te, NULL); // get current time
-					long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // caculate milliseconds
+					long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // Calculate milliseconds
 					// printf("milliseconds: %lld\n", milliseconds);
 					return milliseconds;
 
@@ -110,36 +121,6 @@ namespace MbeddedNinja
 
 				//======================================================================================//
 				//================================= PUBLIC VARIABLES ===================================//
-				//======================================================================================//
-
-				// none
-
-			private:
-
-				//======================================================================================//
-				//=================================== PRIVATE METHODS ==================================//
-				//======================================================================================//
-
-				// none
-
-				//======================================================================================//
-				//================================== PRIVATE VARIABLES =================================//
-				//======================================================================================//
-	
-				void (*enterCriticalSection)();
-				void (*exitCriticalSection)();
-				void (*threadDelayMs)(double milliseconds);
-				
-			protected:
-
-				//======================================================================================//
-				//=================================== PROTECTED METHODS ================================//
-				//======================================================================================//
-				
-				// none
-				
-				//======================================================================================//
-				//================================== PROTECTED VARIABLES ===============================//
 				//======================================================================================//
 
 				// none

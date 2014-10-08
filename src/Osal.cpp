@@ -2,8 +2,8 @@
 //! @file				Osal.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-09-05
-//! @brief 				
+//! @last-modified		2014-10-08
+//! @brief 				Base operating system abstraction layer.
 //! @details
 //!						
 
@@ -41,8 +41,15 @@ namespace MbeddedNinja
 		//=============================== PUBLIC METHOD DEFINITIONS ==================================//
 		//============================================================================================//
 
+		bool Osal::IsInCriticalSection()
+		{
+			return this->isInCriticalSection;
+		}
 
-
+		bool Osal::IsThreadsSuspended()
+		{
+			return this->isThreadsSuspended;
+		}
 		
 		//============================================================================================//
 		//============================== PRIVATE METHOD DEFINITIONS ==================================//

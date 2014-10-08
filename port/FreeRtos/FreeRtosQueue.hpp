@@ -2,7 +2,7 @@
 //! @file				FreeRtosQueue.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-17
-//! @last-modified		2014-09-18
+//! @last-modified		2014-10-08
 //! @brief 				FreeRTOS implementation of a Queue.
 //! @details
 //!						
@@ -57,6 +57,8 @@ namespace MbeddedNinja
 {
 	namespace MOsalNs
 	{
+		//! @brief		FreeRTOS queue object.
+		//! @note		Inherits from Queue. See the Queue class for method descriptions.
 		template < typename QueueDataT >
 		class FreeRtosQueue : public Queue<QueueDataT>
 		{

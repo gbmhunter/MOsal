@@ -2,7 +2,7 @@
 //! @file				FreeRtosOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-09-18
+//! @last-modified		2014-10-08
 //! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
 //! @details
 //!					
@@ -59,8 +59,7 @@ namespace MbeddedNinja
 	{
 	
 		//! @brief		Port-specific operating system abstraction layer for FreeRTOS.
-		//! @details	Inherits from Osal.
-		//! @note
+		//! @note		Inherits from Osal. See the Osal class for method descriptions.
 		class FreeRtosOsal : public Osal
 		{
 			
@@ -85,20 +84,36 @@ namespace MbeddedNinja
 				void EnterCriticalSection()
 				{
 					taskENTER_CRITICAL();
+
+					// Set to true after we are inside a critical section so we are "atomic"
+					this->isInCriticalSection = true;
 				}
 
 				void ExitCriticalSection()
 				{
+					// Set to false first so that it is "atomic"
+					this->isInCriticalSection = false;
+
 					taskEXIT_CRITICAL();
 				}
 
 				void SuspendAllThreads()
 				{
+					//! @todo This could be buggy! What if an interrupt fires after vTaskSuspendAll() is called
+					//!		but before isThreadsSuspended is set to true, and interrupt checks IsThreadsSuspended()???
 					vTaskSuspendAll();
+
+					// Set to true after we are inside a critical section so we are "atomic"
+					this->isThreadsSuspended = true;
 				}
 
 				void ResumeAllThreads()
 				{
+					//! @todo	This could be buggy for the same reason as SuspendAllThreads().
+
+					// Set to false first so that it is "atomic"
+					this->isThreadsSuspended = false;
+
 					xTaskResumeAll();
 				}
 
@@ -126,33 +141,6 @@ namespace MbeddedNinja
 
 				// none
 
-			private:
-
-				//======================================================================================//
-				//=================================== PRIVATE METHODS ==================================//
-				//======================================================================================//
-
-				// none
-
-				//======================================================================================//
-				//================================== PRIVATE VARIABLES =================================//
-				//======================================================================================//
-
-
-
-			protected:
-
-				//======================================================================================//
-				//=================================== PROTECTED METHODS ================================//
-				//======================================================================================//
-				
-				// none
-				
-				//======================================================================================//
-				//================================== PROTECTED VARIABLES ===============================//
-				//======================================================================================//
-
-				// none
 			
 		}; // class FreeRtosOsal
 

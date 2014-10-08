@@ -2,7 +2,7 @@
 //! @file				FreeRtosBinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-18
+//! @last-modified		2014-10-08
 //! @brief 				FreeRTOS implementation of a BinarySemaphore.
 //! @details
 //!						
@@ -61,6 +61,7 @@ namespace MbeddedNinja
 
 		//! @brief		A FreeRTOS implementation of a binary semaphore.
 		//! @details	A FreeRTOS binary semaphore is useful for implementing synchronisation between two threads (or one thread and a interrupt). It does not have a priority inheritance mechanism and is not designed for protecting a shared resource (use a FreeRtosMutex object for that purpose).
+		//! @note		Inherits from BinarySemaphore. See the BinarySemaphore class for method descriptions.
 		class FreeRtosBinarySemaphore : public BinarySemaphore
 		{
 			public:
