@@ -38,7 +38,7 @@ namespace MbeddedNinja
 #include <cstdint>		// int8_t, int32_t e.t.c
 
 //===== USER LIBRARIES =====//
-// none
+#include "MCallbacks/api/MCallbacksApi.hpp"
 
 //===== USER SOURCE =====//
 // none
@@ -52,6 +52,7 @@ namespace MbeddedNinja
 	namespace MOsalNs
 	{
 	
+
 		//! @brief		The basic OSAL object that provides an interface to OS specific functionality.
 		//! @details	Provide the OS-specific function bodies by inheriting from this class.
 		//!				This class essentially specifies the common OSAL interface that can be used on

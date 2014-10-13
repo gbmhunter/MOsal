@@ -11,8 +11,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-10-08
-- Version: v3.6.5.0
+- Last Modified: 2014-10-14
+- Version: v3.7.0.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -31,16 +31,18 @@ Description
 
 An operating system abstraction layer for embedded systems. Allows you to use a consistent OS calling interface through-out your code, keeping your code portable across many operating systems. Designed for microcontrollers and operating systems such as FreeRTOS.
 
-Uses inhertiance from an abstract iterface class (the Osal class), to provide implementations for various operating systems. 
+The design of this module is structured around platform-specific inhertiance from platform-independant abstract iterface classes, to provide implementations for various operating systems.
 
 Provided OS Utilities
 ---------------------
 
+- Delays
 - Mutexs
 - Semaphores
-- Queues
 - System time
+- Threads
 - Timers
+- Queues
 
 Easy To Use
 ------------
@@ -55,7 +57,7 @@ Currently Supported OS's
 - FreeRTOS
 - Linux
 
-Note it is easy and encourged for you to port this to a specific OS! Just copy the header files in :code:'port/', but replace the methods with the OS-specific code!
+Note it is easy and encourged for you to port this to a specific OS! Just copy the header files in :code:`port/`, but replace the methods with the OS-specific code!
 
 Supported Compilers
 ===================
@@ -67,24 +69,25 @@ Installation
 ============
 
 1. Clone the git repo onto your local storage.
-2. Include the relevant operating system specific headers from :code:'port/'. For example, if you are using FreeRTOS, you would include:
+2. Include the platform-independent API file :code:`api/MOsalApi.hpp` and the relevant operating system specific headers from :code:'port/'. For example, if you are using FreeRTOS, you would include:
 
-- FreertosOsal.hpp
-- FreertosMutex.hpp
-- FreertosBinarySemaphore.hpp
-- FreertosQueue.hpp
+- FreeRtosOsal.hpp
+- FreeRtosMutex.hpp
+- FreeRtosBinarySemaphore.hpp
+- FreeRtosQueue.hpp
 
 
 Code Dependencies
 =================
 
-The following table lists all of MOsal's dependencies. Note that this EXCLUDES the dependecies relevant to the specific operating system you are going to use (i.e. excludes all dependecies of files in :code:'port/').
+The following table lists all of MOsal's dependencies. Note that this EXCLUDES the dependecies relevant to the specific operating system you are going to use (i.e. excludes all dependecies of files in :code:`port/`).
 
 ====================== ==================== ======================================================================
 Dependency             Delivery             Usage
 ====================== ==================== ======================================================================
 <ctsdint>              C standard library   For platform agnostic fixed-width integers.
 MAssert                External module      Providing runtime csafety checks against this module.
+MCallbacks             External module      Method callback functionality to creating and using the :code:`Thread` object.
 MUnitTest              External module      Framework for unit tests.
 ====================== ==================== ======================================================================
 
@@ -105,7 +108,7 @@ Basic Example Using FreeRTOS As Our Operating System
 	#include "MOsal/api/MOsalApi.hpp"
 	
 	// We are using FreeRTOS, so include the OS-sepcific FreeRTOS OSAL from port/
-	#include "MOsal/port/FreertosOsal.hpp"
+	#include "MOsal/port/FreeRtosOsal.hpp"
 	
 	using namespace MbeddedNinja;
 	
@@ -136,6 +139,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.7.0.0  2014-10-14 Added a thread object for creating platform-independent threads, closes #42. Created a Linux implementation of this thread object along with some unit tests, closes #43. Updated the Makefile to build with thread support (added the compiler option '-pthread'). Tidyied up the README. Updated Makefile to compile with C++11, closes #44.
 v3.6.5.0  2014-10-08 Added 'ISR safe' comment to Osal::EnterCriticalSection() and ExitCriticalSection(), closes #40. Improved comments through-out code base. Added IsInCriticalSection() and IsThreadsSuspended() methods to Osal, closes #41.
 v3.6.4.0  2014-09-18 Fixed bugs in both 'FreeRtosMutex' and 'FreeRtosBinarySemaphore' where negative values passed as timeouts are not handled correctly, closes #38. Change all usage of doubles to floats, closes #39.
 v3.6.3.0  2014-09-18 Fixed bug in FreeRtosQueue::Receive() where double is type cast to an unsigned type then checked if negative, closes #37.

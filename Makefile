@@ -10,18 +10,18 @@
 
 SRC_CC := g++
 SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
-SRC_LD_FLAGS :=
-SRC_CC_FLAGS := -Wall -g -c  -I. -I./lib -std=c++0x
+SRC_LD_FLAGS := -pthread
+SRC_CC_FLAGS := -Wall -g -c  -I. -I./lib -std=c++11 -pthread
 
 TEST_CC := g++
 TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
-TEST_LD_FLAGS := 
-TEST_CC_FLAGS := -Wall -g -c  -I. -I./lib -std=c++0x
+TEST_LD_FLAGS := -pthread
+TEST_CC_FLAGS := -Wall -g -c  -I. -I./lib -std=c++11 -pthread
 
 EXAMPLE_CC := g++
 EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
-EXAMPLE_LD_FLAGS := 
-EXAMPLE_CC_FLAGS := -Wall -g -c -I. -I./lib -std=c++0x
+EXAMPLE_LD_FLAGS := -pthread
+EXAMPLE_CC_FLAGS := -Wall -g -c -I. -I./lib -std=c++11 -pthread
 
 DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest
 DEP_LIBS := -l MAssert -l MUnitTest

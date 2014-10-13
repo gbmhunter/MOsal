@@ -2,7 +2,7 @@
 //! @file				LinuxOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-10-08
+//! @last-modified		2014-10-14
 //! @brief 				Port-specific operating system abstraction layer for Linux.
 //! @details
 //!					
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef MOSAL_LINUX_OSAL_H
-#define MOSAL_LINUX_OSAL_H
+#ifndef M_OSAL_LINUX_OSAL_H
+#define M_OSAL_LINUX_OSAL_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -131,6 +131,6 @@ namespace MbeddedNinja
 
 } // namespace MbeddedNinja
 
-#endif	// #ifndef MOSAL_LINUX_OSAL_H
+#endif	// #ifndef M_OSAL_LINUX_OSAL_H
 
 // EOF
