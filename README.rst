@@ -12,7 +12,7 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
 - Last Modified: 2014-10-14
-- Version: v3.7.0.0
+- Version: v3.7.1.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -139,6 +139,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.7.1.0  2014-10-14 Add Thread.hpp to the api file, closes #45.
 v3.7.0.0  2014-10-14 Added a thread object for creating platform-independent threads, closes #42. Created a Linux implementation of this thread object along with some unit tests, closes #43. Updated the Makefile to build with thread support (added the compiler option '-pthread'). Tidyied up the README. Updated Makefile to compile with C++11, closes #44.
 v3.6.5.0  2014-10-08 Added 'ISR safe' comment to Osal::EnterCriticalSection() and ExitCriticalSection(), closes #40. Improved comments through-out code base. Added IsInCriticalSection() and IsThreadsSuspended() methods to Osal, closes #41.
 v3.6.4.0  2014-09-18 Fixed bugs in both 'FreeRtosMutex' and 'FreeRtosBinarySemaphore' where negative values passed as timeouts are not handled correctly, closes #38. Change all usage of doubles to floats, closes #39.

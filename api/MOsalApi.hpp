@@ -23,9 +23,10 @@
 //===============================================================================================//
 
 //===== USER SOURCE =====//
-#include "../include/Osal.hpp"
 #include "../include/BinarySemaphore.hpp"
 #include "../include/Mutex.hpp"
+#include "../include/Osal.hpp"
+#include "../include/Thread.hpp"
 #include "../include/Timer.hpp"
 #include "../include/Queue.hpp"
 
