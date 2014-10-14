@@ -2,7 +2,7 @@
 //! @file				Thread.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-10-12
-//! @last-modified		2014-10-12
+//! @last-modified		2014-10-14
 //! @brief 				A platform-independent OSAL thread object.
 //! @details
 //!					
@@ -85,6 +85,8 @@ namespace MbeddedNinja
 			//! @brief		Thread destructor.
 			virtual ~Thread(){};
 
+			virtual void AssignThreadMethod(MCallbacks::Callback<void, bool> threadMethod) = 0;
+
 			//! @brief		Starts the thread.
 			//! @details
 			virtual void Start() = 0;
@@ -93,9 +95,17 @@ namespace MbeddedNinja
 			//!	@details	This causes the thread to enter the STOPPED state when it is any other state. This has to be called when using the Linux implementation before main() exits, otherwise an exception will be thrown (this calls join()).
 			virtual void Stop() = 0;
 
+			virtual void Join() = 0;
+
 			//! @brief		Use to determine what state the thread is in.
 			//! @returns	The state the thread is in.
 			ThreadStates GetState();
+
+			//======================================================================================//
+			//================================= PUBLIC VARIABLES ===================================//
+			//======================================================================================//
+
+			bool stopThread;
 
 			protected:
 
@@ -104,14 +114,9 @@ namespace MbeddedNinja
 			//! @param		threadMethod		The method to call when the thread starts running.
 			Thread(MCallbacks::Callback<void, bool> threadMethod);
 
-			//======================================================================================//
-			//================================= PUBLIC VARIABLES ===================================//
-			//======================================================================================//
-
-			// none
-
-			protected:
-
+			//! @brief		Simplified thread constructor. Protected to forced inheritance.
+			//! @details	Thread is NOT started on construction. Start() has to be called to start the thread.
+			Thread(){};
 
 			//! @brief		Pointer to the operating system abstraction layer object.
 			//! @details	Initialised in StaticInit().

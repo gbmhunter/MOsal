@@ -63,7 +63,7 @@ namespace MOsalTestsNs
 		linuxOsal.ThreadDelayMs(100);
 
 		// Stop the thread
-		myThread.Stop();
+		myThread.Join();
 
 		// The new thread should have run, and the var hasBeenCalled
 		// set to true

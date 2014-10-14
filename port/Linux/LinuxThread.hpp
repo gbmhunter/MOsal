@@ -1,7 +1,7 @@
 //!
 //! @file				LinuxThread.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created			2014-10-14
+//! @created			2014-10-13
 //! @last-modified		2014-10-14
 //! @brief 				Port-specific thread abstraction layer for Linux.
 //! @details
@@ -70,13 +70,29 @@ namespace MbeddedNinja
 
 			}
 
+			//! @brief		Simplified constructor.
+			LinuxThread() :
+				Thread()
+			{
+
+			}
+
 			~LinuxThread()
 			{
 				// No tear down required
 			}
 
+			void AssignThreadMethod(MCallbacks::Callback<void, bool> threadMethod)
+			{
+				// Save threadMethod to internal variable
+				this->threadMethod = threadMethod;
+			}
+
 			void Start()
 			{
+				// Make sure a callback thread method has been assigned
+				M_ASSERT(this->threadMethod.IsValid());
+
 				// Create thread, which automatically starts it
 				this->myThread = new std::thread(&LinuxThread::Runner, this);
 			}
@@ -90,9 +106,16 @@ namespace MbeddedNinja
 
 			//! @brief
 			//!	@details
-			void Stop()
+			void Join()
 			{
 				this->myThread->join();
+			}
+
+			void Stop()
+			{
+				// All we can do here is set a flag to true, it is up to the running threads method
+				// to check this and exit occordingly.
+				this->stopThread = true;
 			}
 
 			private:
