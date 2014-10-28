@@ -2,7 +2,7 @@
 //! @file				Thread.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-10-12
-//! @last-modified		2014-10-14
+//! @last-modified		2014-10-28
 //! @brief 				A platform-independent OSAL thread object.
 //! @details
 //!					
@@ -116,7 +116,10 @@ namespace MbeddedNinja
 
 			//! @brief		Simplified thread constructor. Protected to forced inheritance.
 			//! @details	Thread is NOT started on construction. Start() has to be called to start the thread.
-			Thread(){};
+			Thread() :
+				threadState(ThreadStates::STOPPED),
+				stopThread(false)
+			{};
 
 			//! @brief		Pointer to the operating system abstraction layer object.
 			//! @details	Initialised in StaticInit().

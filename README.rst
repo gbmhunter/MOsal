@@ -11,8 +11,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-10-14
-- Version: v3.7.3.0
+- Last Modified: 2014-10-28
+- Version: v3.7.4.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -139,6 +139,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.7.4.0  2014-10-28 Thread::stopThread is now set to false every time Thread::Start() is called, closes #51. Added a unit test which makes sure a stopped thread can be run again, closes #52.
 v3.7.3.0  2014-10-14 Added MCallbacks as a dependency in the Makefile to fix TravisCI build error, closes #50.
 v3.7.2.0  2014-10-14 Added empty Thread constructor (sometimes you don't want to provide the callback on creation), closes #49. Changed the Thread::Stop() method to Thread::Join() and implemented a proper Thread::Stop(), closes #48.
 v3.7.1.0  2014-10-13 Add Thread.hpp to the api file, closes #45.
