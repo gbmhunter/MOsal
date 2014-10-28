@@ -12,14 +12,14 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
 - Last Modified: 2014-10-29
-- Version: v3.7.5.0
+- Version: v3.7.5.1
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
 - Compiler: GCC	
 - uC Model: Any
 - Computer Architecture: Any
-- Operating System: Any (currently FreeRTOS and Linux have the port--specific code written for you!)
+- Operating System: Any (currently FreeRTOS and Linux have the platform-specific code written for you!)
 - Documentation Format: Doxygen
 - License: GPLv3
 
@@ -58,6 +58,8 @@ Currently Supported OS's
 - Linux
 
 Note it is easy and encourged for you to port this to a specific OS! Just copy the header files in :code:`port/`, but replace the methods with the OS-specific code!
+
+Asserts are raised if a Osal-related method is called which hasn't yet been implemented (or not supported) for the platform you are using.
 
 Supported Compilers
 ===================
@@ -139,6 +141,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.7.5.1  2014-10-29 Added some additioal information to the README.
 v3.7.5.0  2014-10-29 Rewrote Osal::GetTimeMs() and associated time-related methods to return a 64-bit time, closes #55. Added Osal::GetUnixTimeMs() method, closes #56.
 v3.7.4.0  2014-10-28 Thread::stopThread is now set to false every time Thread::Start() is called, closes #51. Added a unit test which makes sure a stopped thread can be run again, closes #52.
 v3.7.3.0  2014-10-14 Added MCallbacks as a dependency in the Makefile to fix TravisCI build error, closes #50.
