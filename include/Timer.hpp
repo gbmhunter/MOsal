@@ -2,7 +2,7 @@
 //! @file				Timer.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-05
-//! @last-modified		2014-09-16
+//! @last-modified		2014-10-29
 //! @brief 				Timer object.
 //! @details
 //!					
@@ -118,7 +118,7 @@ namespace MbeddedNinja
 			//! @returns	The state the Timer is in.
 			TimerStates GetState();
 
-			//! @brief		Call this to easily check if the timer has expired.
+			//! @brief		Call this to easily check if the timer has expired. Not const because it will change the timer to the expired state if needed.
 			//! @details	You can also determine if the timer has expired by calling GetState().
 			//! @returns	True if the timer has expired, otherwise false.
 			bool IsExpired();
@@ -126,13 +126,13 @@ namespace MbeddedNinja
 			//! @returns	The elapsed time (total run time) of the timer. Will keep working
 			//!				even after the timer has gone into the EXPIRED state, this function will
 			//!				just return a number higher than timeoutInMs.
-			uint32_t GetElapsedTimeMs() const;
+			uint64_t GetElapsedTimeMs() const;
 
 			//! @brief		Call to find out how much time (in milliseconds) the timer has left
 			//!				remaining until it expires.
 			//! @returns	The amount of time the timer has left until it expires, in milliseconds.
 			//!				Returns 0 if the timer has expired.
-			uint32_t GetRemainingTimeMs() const;
+			uint64_t GetRemainingTimeMs() const;
 
 			//======================================================================================//
 			//================================= PUBLIC VARIABLES ===================================//
@@ -142,44 +142,44 @@ namespace MbeddedNinja
 
 			private:
 
-				//======================================================================================//
-				//=================================== PRIVATE METHODS ==================================//
-				//======================================================================================//
+			//======================================================================================//
+			//=================================== PRIVATE METHODS ==================================//
+			//======================================================================================//
 
-				//! @brief		Checks and changes the timers state if neccessary
-				void CheckForExpiry();
+			//! @brief		Checks and changes the timers state if neccessary
+			void CheckForExpiry();
 
-				//======================================================================================//
-				//================================== PRIVATE VARIABLES =================================//
-				//======================================================================================//
+			//======================================================================================//
+			//================================== PRIVATE VARIABLES =================================//
+			//======================================================================================//
 
-				//! @brief		Pointer to the operating system abstraction layer object.
-				//! @details	Initialised in StaticInit().
-				static Osal * osal;
+			//! @brief		Pointer to the operating system abstraction layer object.
+			//! @details	Initialised in StaticInit().
+			static Osal * osal;
 
-				//! @brief		Holds the current state of the timer.
-				TimerStates timerState;
+			//! @brief		Holds the current state of the timer.
+			TimerStates timerState;
 
-				//! @brief		Remembers the system time at which Start() was called.
-				uint32_t latestRunStartTimeInMs;
+			//! @brief		Remembers the system time at which Start() was called.
+			uint64_t latestRunStartTimeInMs;
 
-				//! @brief		Remembers the elpased time in ms. Useful for when Pause() and Resume() are used.
-				uint32_t elapsedTimeInPreviousRunStatesInMs;
+			//! @brief		Remembers the elpased time in ms. Useful for when Pause() and Resume() are used.
+			uint64_t elapsedTimeInPreviousRunStatesInMs;
 
-				//! @brief		Remembers the time at which the timer will timeout at.
-				uint32_t timeoutInMs;
+			//! @brief		Remembers the time at which the timer will timeout at.
+			uint64_t timeoutInMs;
 
 			protected:
 	
-				//======================================================================================//
-				//=================================== PROTECTED METHODS ================================//
-				//======================================================================================//
-				
-				
+			//======================================================================================//
+			//=================================== PROTECTED METHODS ================================//
+			//======================================================================================//
 
-				//======================================================================================//
-				//================================== PROTECTED VARIABLES ===============================//
-				//======================================================================================//
+
+
+			//======================================================================================//
+			//================================== PROTECTED VARIABLES ===============================//
+			//======================================================================================//
 
 			
 		}; // class Timer

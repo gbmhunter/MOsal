@@ -2,7 +2,7 @@
 //! @file				BinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-18
+//! @last-modified		2014-10-29
 //! @brief 				
 //! @details
 //!					
@@ -34,13 +34,13 @@ namespace MbeddedNinja
 //========================================== INCLUDES ===========================================//
 //===============================================================================================//
 
-// System headers
+//===== SYSTEM HEADERS =====//
 #include <cstdint>		// int8_t, int32_t e.t.c
 
-// User libraries
+//===== USER LIBRARIES =====//
 // none
 
-// User headers
+//===== USER SOURCE =====//
 // none
 
 //===============================================================================================//
@@ -123,7 +123,7 @@ namespace MbeddedNinja
 		}; // class BinarySemaphore
 
 
-	} // namespace OsalNs
+	} // namespace MOsalNs
 } // namespace MbeddedNinja
 
 #endif	// #ifndef MOSAL_BINARY_SEMAPHORE_H

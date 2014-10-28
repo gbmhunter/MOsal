@@ -2,7 +2,7 @@
 //! @file				Queue.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-17
-//! @last-modified		2014-09-17
+//! @last-modified		2014-10-29
 //! @brief 				Abstraction layer for a Queue object.
 //! @details
 //!					
@@ -122,8 +122,7 @@ namespace MbeddedNinja
 			
 		}; // class Queue
 
-
-	} // namespace OsalNs
+	} // namespace MOsalNs
 } // namespace MbeddedNinja
 
 #endif	// #ifndef MOSAL_QUEUE_H

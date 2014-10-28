@@ -124,7 +124,7 @@ namespace MbeddedNinja
 					vTaskDelay((milliseconds/(double)portTICK_RATE_MS));
 				}
 
-				uint32_t GetTimeMs()
+				uint32_t GetRunTimeMs()
 				{
 					// Freertos uses ticks, so we need to convert the tick count to
 					// a specific number of milliseconds, knowing the ratio between the two

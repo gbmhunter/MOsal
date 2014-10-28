@@ -131,9 +131,7 @@ namespace MbeddedNinja
 			//! @brief		Holds a callback to the method to call when the thread starts running.
 			MCallbacks::Callback<void, bool> threadMethod;
 
-			
 		}; // class Thread
-
 
 	} // namespace MOsalNs
 } // namespace MbeddedNinja

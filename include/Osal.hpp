@@ -2,7 +2,7 @@
 //! @file				Osal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-10-08
+//! @last-modified		2014-10-29
 //! @brief 				Base operating system abstraction layer.
 //! @details
 //!					
@@ -67,7 +67,7 @@ namespace MbeddedNinja
 				//==================================== PUBLIC METHODS ==================================//
 				//======================================================================================//
 
-				//! @brief		Destructor
+				//! @brief		Destructor.
 				virtual ~Osal(){};
 
 				//! @brief		Enters a critical section (the scheduler and OS-aware interrupts are disabled).
@@ -98,8 +98,13 @@ namespace MbeddedNinja
 				//!				in the interim.
 				virtual void ThreadDelayMs(double milliseconds) = 0;
 
-				//! @brief		Returns the time since operating system started running in milliseconds.
-				virtual uint32_t GetTimeMs() = 0;
+				//! @brief		Returns a time (in milliseconds) that can be used for relative time periods.
+				//! @details	Actual value is platform specific (e.g. it could be the time since Epoch when running under Linux, or the time since the OS was started if running under FreeRTOS). This should only be used for relative time periods (i.e. one minus another). Will raise an assert if method has not been implemented for a particular port.
+				virtual uint64_t GetTimeMs();
+
+				//! @brief		Returns the time (in milliseconds) since the Epoch.
+				//! @details	Will raise an assert if method has not been implemented for a particular port.
+				virtual uint64_t GetUnixTimeMs();
 
 				//======================================================================================//
 				//================================= PUBLIC VARIABLES ===================================//

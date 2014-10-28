@@ -2,7 +2,7 @@
 //! @file				LinuxOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-10-14
+//! @last-modified		2014-10-29
 //! @brief 				Port-specific operating system abstraction layer for Linux.
 //! @details
 //!					
@@ -108,15 +108,26 @@ namespace MbeddedNinja
 					usleep((useconds_t)(milliseconds*1000));
 				}
 
-				uint32_t GetTimeMs()
+				//! @brief		This just calls GetUnixTimeMs() since that will be perfectly adaquete.
+				uint64_t GetTimeMs()
 				{
+					// Just return Unix time
+					return this->GetUnixTimeMs();
+				}
 
+				//! @brief		This Linux implementation of GetTimeMs() returns the number of milliseconds since the Epoch.
+				uint64_t GetUnixTimeMs()
+				{
+					// Structure for storing time into
 					struct timeval te;
-					gettimeofday(&te, NULL); // get current time
-					long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // Calculate milliseconds
-					// printf("milliseconds: %lld\n", milliseconds);
-					return milliseconds;
 
+					// Get current time from Epoch
+					gettimeofday(&te, NULL);
+
+					// Calculate milliseconds
+					uint64_t milliseconds = (uint64_t)te.tv_sec*(uint64_t)1000 + (uint64_t)te.tv_usec/1000;
+
+					return milliseconds;
 				}
 
 				//======================================================================================//

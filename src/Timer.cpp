@@ -2,7 +2,7 @@
 //! @file				Timer.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-05
-//! @last-modified		2014-09-16
+//! @last-modified		2014-10-29
 //! @brief 				Timer object.
 //! @details
 //!						
@@ -164,7 +164,7 @@ namespace MbeddedNinja
 
 		}
 
-		uint32_t Timer::GetElapsedTimeMs() const
+		uint64_t Timer::GetElapsedTimeMs() const
 		{
 			//std::cout << "Timer::GetElapsedTimeMs() called." << std::endl;
 			//std::cout << "this->elapsedTimeInPreviousRunStatesInMs = '" <<
@@ -191,7 +191,7 @@ namespace MbeddedNinja
 
 		}
 
-		uint32_t Timer::GetRemainingTimeMs() const
+		uint64_t Timer::GetRemainingTimeMs() const
 		{
 			// We have to take a snapshot of the elapsed time, because we use it multiple times in this
 			// function, at the value could change between calls to this->GetElapsedTimeMs()
