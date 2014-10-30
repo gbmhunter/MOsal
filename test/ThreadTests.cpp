@@ -47,7 +47,7 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
+		MOsal::LinuxOsal linuxOsal;
 
 		TestClass myTestClass;
 
@@ -55,7 +55,7 @@ namespace MOsalTestsNs
 		MCallbacks::CallbackGen<TestClass, void, bool> myCallBack(&myTestClass, &TestClass::MethodToCall);
 
 		// Create a new thread
-		MOsalNs::LinuxThread myThread(myCallBack);
+		MOsal::LinuxThread myThread(myCallBack);
 
 		// Thread should not have started running yet
 		CHECK_EQUAL(myTestClass.hasBeenCalled, false);
@@ -78,7 +78,7 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
+		MOsal::LinuxOsal linuxOsal;
 
 		TestClass myTestClass;
 
@@ -86,7 +86,7 @@ namespace MOsalTestsNs
 		MCallbacks::CallbackGen<TestClass, void, bool> myCallBack(&myTestClass, &TestClass::MethodToCall);
 
 		// Create a new thread
-		MOsalNs::LinuxThread myThread(myCallBack);
+		MOsal::LinuxThread myThread(myCallBack);
 
 		// Thread should not have started running yet
 		CHECK_EQUAL(myTestClass.hasBeenCalled, false);

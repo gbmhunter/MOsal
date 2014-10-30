@@ -2,7 +2,7 @@
 //! @file				LinuxThread.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-10-13
-//! @last-modified		2014-10-28
+//! @last-modified		2014-10-30
 //! @brief 				Port-specific thread abstraction layer for Linux.
 //! @details
 //!					
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class LinuxThread;
 	}
@@ -51,7 +51,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 
 

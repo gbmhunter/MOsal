@@ -2,7 +2,7 @@
 //! @file				FreeRtosOsal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-29
-//! @last-modified		2014-10-08
+//! @last-modified		2014-10-30
 //! @brief 				Port-specific operating system abstraction layer for FreeRTOS.
 //! @details
 //!					
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class FreeRtosOsal;
 	}
@@ -55,7 +55,7 @@ namespace MbeddedNinja
 namespace MbeddedNinja
 {
 	
-	namespace MOsalNs
+	namespace MOsal
 	{
 	
 		//! @brief		Port-specific operating system abstraction layer for FreeRTOS.

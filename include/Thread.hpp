@@ -2,7 +2,7 @@
 //! @file				Thread.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-10-12
-//! @last-modified		2014-10-28
+//! @last-modified		2014-10-30
 //! @brief 				A platform-independent OSAL thread object.
 //! @details
 //!					
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class Thread;
 	}
@@ -50,7 +50,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		
 		//! @brief

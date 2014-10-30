@@ -2,7 +2,7 @@
 //! @file				Thread.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-10-13
-//! @last-modified		2014-10-13
+//! @last-modified		2014-10-30
 //! @brief				A platform-independent OSAL thread object.
 //! @details
 //!						
@@ -33,7 +33,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 
 		Osal * Thread::osal = nullptr;

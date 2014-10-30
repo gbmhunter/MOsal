@@ -26,9 +26,9 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
-		MOsalNs::Timer timer1(500);
+		MOsal::LinuxOsal linuxOsal;
+		MOsal::Timer::StaticInit(&linuxOsal);
+		MOsal::Timer timer1(500);
 
 		// Start timer
 		timer1.Start();
@@ -71,9 +71,9 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
-		MOsalNs::Timer timer1(200);
+		MOsal::LinuxOsal linuxOsal;
+		MOsal::Timer::StaticInit(&linuxOsal);
+		MOsal::Timer timer1(200);
 
 		// Start timer
 		timer1.Start();
@@ -94,10 +94,10 @@ namespace MOsalTestsNs
 
 	MTEST(PauseTimerTest)
 	{
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
+		MOsal::LinuxOsal linuxOsal;
+		MOsal::Timer::StaticInit(&linuxOsal);
 
-		MOsalNs::Timer timer1(1000);
+		MOsal::Timer timer1(1000);
 		timer1.Start();
 
 		CHECK(!timer1.IsExpired());
@@ -139,11 +139,11 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
+		MOsal::LinuxOsal linuxOsal;
+		MOsal::Timer::StaticInit(&linuxOsal);
 
 		// Create a timer with a 200ms timeout
-		MOsalNs::Timer timer1(200);
+		MOsal::Timer timer1(200);
 
 		// Start timer
 		timer1.Start();
@@ -170,16 +170,16 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
+		MOsal::LinuxOsal linuxOsal;
+		MOsal::Timer::StaticInit(&linuxOsal);
 
 		// Create a timer with a 100ms timeout
-		MOsalNs::Timer timer1(100);
+		MOsal::Timer timer1(100);
 
 		// Timer should be in the STOPPED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::STOPPED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::STOPPED));
 
 		// Start timer
 		timer1.Start();
@@ -187,7 +187,7 @@ namespace MOsalTestsNs
 		// Timer should now be in the RUNNING state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::RUNNING));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::RUNNING));
 
 		linuxOsal.ThreadDelayMs(50);
 
@@ -198,14 +198,14 @@ namespace MOsalTestsNs
 		// Timer should now be in the RUNNING state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::RUNNING));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::RUNNING));
 
 		linuxOsal.ThreadDelayMs(50);
 
 		// Timer should now be in the EXPIRED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::EXPIRED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::EXPIRED));
 
 
 
@@ -215,16 +215,16 @@ namespace MOsalTestsNs
 	{
 		// Create a Linux OSAL
 		// (change this if running unit tests on different platform)
-		MOsalNs::LinuxOsal linuxOsal;
-		MOsalNs::Timer::StaticInit(&linuxOsal);
+		MOsal::LinuxOsal linuxOsal;
+		MOsal::Timer::StaticInit(&linuxOsal);
 
 		// Create a timer with a 100ms timeout
-		MOsalNs::Timer timer1(100);
+		MOsal::Timer timer1(100);
 
 		// Timer should be in the STOPPED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::STOPPED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::STOPPED));
 
 		// Start timer
 		timer1.Start();
@@ -232,14 +232,14 @@ namespace MOsalTestsNs
 		// Timer should now be in the RUNNING state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::RUNNING));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::RUNNING));
 
 		linuxOsal.ThreadDelayMs(100);
 
 		// Timer should now be in the EXPIRED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::EXPIRED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::EXPIRED));
 
 		// Lets reset the timer, starting a new 200ms
 		// timeout
@@ -248,14 +248,14 @@ namespace MOsalTestsNs
 		// Timer should now be in the STOPPED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::STOPPED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::STOPPED));
 
 		timer1.Start();
 
 		// Timer should now be in the RUNNING state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::RUNNING));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::RUNNING));
 
 		linuxOsal.ThreadDelayMs(50);
 
@@ -264,28 +264,28 @@ namespace MOsalTestsNs
 		// Timer should now be in the PAUSED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::PAUSED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::PAUSED));
 
 		timer1.Resume();
 
 		// Timer should now be in the RUNNING state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::RUNNING));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::RUNNING));
 
 		timer1.Reset();
 
 		// Timer should still be in the RUNNING state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::RUNNING));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::RUNNING));
 
 		timer1.Stop();
 
 		// Timer should still be in the STOPPED state
 		CHECK_EQUAL(
 			static_cast<uint8_t>(timer1.GetState()),
-			static_cast<uint8_t>(MOsalNs::Timer::TimerStates::STOPPED));
+			static_cast<uint8_t>(MOsal::Timer::TimerStates::STOPPED));
 
 	}
 

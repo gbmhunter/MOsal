@@ -2,7 +2,7 @@
 //! @file				FreeRtosBinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-10-08
+//! @last-modified		2014-10-30
 //! @brief 				FreeRTOS implementation of a BinarySemaphore.
 //! @details
 //!						
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class FreeRtosBinarySemaphore;
 	}
@@ -52,7 +52,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 
 		//============================================================================================//

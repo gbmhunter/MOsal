@@ -2,7 +2,7 @@
 //! @file				FreeRtosMutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-09-18
+//! @last-modified		2014-10-30
 //! @brief 				FreeRTOS implementation of a Mutex.
 //! @details
 //!						
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class FreeRtosMutex;
 	}
@@ -57,7 +57,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 
 		//! @brief		A FreeRTOS implementation of a Mutex.

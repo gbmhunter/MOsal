@@ -2,7 +2,7 @@
 //! @file				Mutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-10-29
+//! @last-modified		2014-10-30
 //! @brief 				Abstraction layer for a Mutex object.
 //! @details
 //!					
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class Mutex;
 	}
@@ -49,7 +49,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		
 		//! @brief		Abstraction-layer mutex object that is designed to work with the OSAL (operating system
@@ -107,7 +107,7 @@ namespace MbeddedNinja
 				//=================================== PROTECTED METHODS ================================//
 				//======================================================================================//
 				
-				//! @brief		Binary semaphore constructor.
+				//! @brief		Mutex constructor.
 				//! @details	Protected to enforce inheritance.
 				Mutex(){};
 				
@@ -115,7 +115,7 @@ namespace MbeddedNinja
 				//================================== PROTECTED VARIABLES ===============================//
 				//======================================================================================//
 
-				//! @brief		Internally saves the binary semaphore handle assigned by the OS.
+				//! @brief		Internally saves the mutex handle assigned by the OS.
 				void * mutexHandle;
 			
 		}; // class Mutex

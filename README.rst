@@ -11,8 +11,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-10-29
-- Version: v3.7.5.1
+- Last Modified: 2014-10-30
+- Version: v3.7.6.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -141,6 +141,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.7.6.0  2014-10-30 Renamed namespace MOsalNs to MOsal, closes #58.
 v3.7.5.1  2014-10-29 Added some additioal information to the README.
 v3.7.5.0  2014-10-29 Rewrote Osal::GetTimeMs() and associated time-related methods to return a 64-bit time, closes #55. Added Osal::GetUnixTimeMs() method, closes #56.
 v3.7.4.0  2014-10-28 Thread::stopThread is now set to false every time Thread::Start() is called, closes #51. Added a unit test which makes sure a stopped thread can be run again, closes #52.

@@ -2,8 +2,8 @@
 //! @file				BinarySemaphore.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-11
-//! @last-modified		2014-10-29
-//! @brief 				
+//! @last-modified		2014-10-30
+//! @brief 				Abstraction layer for a binary semaphore.
 //! @details
 //!					
 
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class BinarySemaphore;
 	}
@@ -49,7 +49,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		
 		//! @brief		Abstraction-layer binary semaphore object that is designed to work with the OSAL (operating system

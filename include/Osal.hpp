@@ -2,7 +2,7 @@
 //! @file				Osal.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-10-29
+//! @last-modified		2014-10-30
 //! @brief 				Base operating system abstraction layer.
 //! @details
 //!					
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef MOSAL_OSAL_H
-#define MOSAL_OSAL_H
+#ifndef M_OSAL_OSAL_H
+#define M_OSAL_OSAL_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		class Osal;
 	}
@@ -49,7 +49,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 	
 
@@ -149,9 +149,9 @@ namespace MbeddedNinja
 			
 		}; // class Osal
 
-	} // namespace OsalNs
+	} // namespace MOsal
 } // namespace MbeddedNinja
 
-#endif	// #ifndef MOSAL_OSAL_H
+#endif	// #ifndef M_OSAL_OSAL_H
 
 // EOF

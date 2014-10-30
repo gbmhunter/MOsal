@@ -2,7 +2,7 @@
 //! @file				Queue.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-09-17
-//! @last-modified		2014-10-29
+//! @last-modified		2014-10-30
 //! @brief 				Abstraction layer for a Queue object.
 //! @details
 //!					
@@ -24,7 +24,7 @@
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		template < typename QueueDataT >
 		class Queue;
@@ -50,7 +50,7 @@ namespace MbeddedNinja
 
 namespace MbeddedNinja
 {
-	namespace MOsalNs
+	namespace MOsal
 	{
 		
 		//! @brief		Abstraction-layer queue object that is designed to work with the OSAL (operating system

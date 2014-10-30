@@ -2,7 +2,7 @@
 //! @file				Osal.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-10-29
+//! @last-modified		2014-10-30
 //! @brief 				Base operating system abstraction layer.
 //! @details
 //!						
@@ -34,7 +34,7 @@
 namespace MbeddedNinja
 {
 
-	namespace MOsalNs
+	namespace MOsal
 	{
 
 		//============================================================================================//

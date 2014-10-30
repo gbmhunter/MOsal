@@ -2,7 +2,7 @@
 //! @file				OsalApi.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 //! @created			2014-08-07
-//! @last-modified		2014-10-14
+//! @last-modified		2014-10-30
 //! @brief 				The single header to include when using the OSAL module.
 //! @details
 //!
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef M_OSAL_OSAL_API_H
-#define M_OSAL_OSAL_API_H
+#ifndef M_OSAL_M_OSAL_API_H
+#define M_OSAL_M_OSAL_API_H
 
 //===============================================================================================//
 //========================================== INCLUDES ===========================================//
@@ -32,6 +32,6 @@
 
 // Do not include port-specific headers here, these are to be selectively included by the user.
 
-#endif	// #ifndef M_OSAL_OSAL_API_H
+#endif	// #ifndef M_OSAL_M_OSAL_API_H
 
 // EOF
