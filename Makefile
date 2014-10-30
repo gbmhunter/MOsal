@@ -3,7 +3,7 @@
 # @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
 # @edited 			n/a
 # @created			2014-09-05
-# @last-modified 	2014-10-14
+# @last-modified 	2014-10-31
 # @brief 			Makefile for Linux-based make, to compile the MOsal library, example code and run unit test code.
 # @details
 #					See README in repo root dir for more info.
@@ -23,8 +23,8 @@ EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := -pthread
 EXAMPLE_CC_FLAGS := -Wall -g -c -I. -I./lib -std=c++11 -pthread
 
-DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest -L ../MCallbacks
-DEP_LIBS := -l MAssert -l MUnitTest -l MCallbacks
+DEP_LIB_PATHS := -L ../MAssert -L ../MUnitTest -L ../MCallbacks -L ../MString
+DEP_LIBS := -l MAssert -l MUnitTest -l MCallbacks -l MString
 DEP_INCLUDE_PATHS := -I../
 
 .PHONY: depend clean
@@ -67,6 +67,10 @@ deps :
 	git clone https://github.com/mbedded-ninja/MCallbacks ../MCallbacks; \
 	fi;
 	$(MAKE) -C ../MCallbacks/ all
+	if [ ! -d ../MString ]; then \
+	git clone https://github.com/mbedded-ninja/MString ../MString; \
+	fi;
+	$(MAKE) -C ../MString/ all
 	
 	
 # ======== TEST ========
@@ -107,6 +111,7 @@ clean-deps:
 	$(MAKE) -C ../MUnitTest/ clean
 	$(MAKE) -C ../MAssert/ clean
 	$(MAKE) -C ../MCallbacks/ clean
+	$(MAKE) -C ../MString/ clean
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o

@@ -12,6 +12,7 @@
 
 //===== USER LIBRARIES =====//
 #include "MUnitTest/api/MUnitTestApi.hpp"
+#include "MString/api/MStringApi.hpp"
 
 //===== USER SOURCE =====//
 #include "../api/MOsalApi.hpp"				// MOsal::Osal
@@ -35,15 +36,19 @@ namespace MOsalTestsNs
 			TestClass(
 				MOsal::Osal * osal,
 				MOsal::Mutex * mutex,
-				char charToPrint) :
+				char charToPrint,
+				MString * stringToPrintTo) :
 					osal(osal),
 					mutex(mutex),
-					charToPrint(charToPrint)
+					charToPrint(charToPrint),
+					stringToPrintTo(stringToPrintTo)
 			{}
 
 			MOsal::Osal * osal;
 			MOsal::Mutex * mutex;
 			char charToPrint;
+			MString * stringToPrintTo;
+
 
 			//! @brief		We will use this method as the threads method to call.
 			void MethodToCall(bool trueFalse)
@@ -55,12 +60,12 @@ namespace MOsalTestsNs
 				// Because of the mutex, these should be printed consecutively
 				for(uint8_t x = 0; x < 10; x++)
 				{
-					std::cout << this->charToPrint;
+					this->stringToPrintTo->Append(this->charToPrint);
 					this->osal->ThreadDelayMs(20);
 				}
 
-				// Add a CR/LF and flush buffer
-				std::cout << std::endl;
+				// Add a CR/LF
+				this->stringToPrintTo->Append("\r\n");
 
 				// Let's now unlock the mutex and return
 				this->mutex->Unlock();
@@ -79,8 +84,10 @@ namespace MOsalTestsNs
 			// the two threads
 			MOsal::LinuxMutex linuxMutex;
 
-			TestClass myTestClass1(&linuxOsal, &linuxMutex, '1');
-			TestClass myTestClass2(&linuxOsal, &linuxMutex, '2');
+			MString stringToPrintTo;
+
+			TestClass myTestClass1(&linuxOsal, &linuxMutex, '1', &stringToPrintTo);
+			TestClass myTestClass2(&linuxOsal, &linuxMutex, '2', &stringToPrintTo);
 
 			// Create callbacks to the test class's method
 			MCallbacks::CallbackGen<TestClass, void, bool> myCallBack1(&myTestClass1, &TestClass::MethodToCall);
@@ -102,7 +109,8 @@ namespace MOsalTestsNs
 			myThread2.Join();
 
 			// Need to make sure 10 1's and 10 2's were printed without being interrupted by each other
-			//CHECK_EQUAL(myTestClass.hasBeenCalled, true);
+			CHECK(stringToPrintTo.Find("1111111111") >= 0);
+			CHECK(stringToPrintTo.Find("2222222222") >= 0);
 		}
 
 	} // MTEST_GROUP(MutexTests)
