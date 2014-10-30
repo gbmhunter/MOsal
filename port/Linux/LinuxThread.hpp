@@ -130,7 +130,6 @@ namespace MbeddedNinja
 		}; // class LinuxThread
 		
 	} // namespace MOsalNs
-
 } // namespace MbeddedNinja
 
 #endif	// #ifndef M_OSAL_LINUX_THREAD_H

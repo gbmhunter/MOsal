@@ -1,9 +1,9 @@
 //!
-//! @file				FreeRtosMutex.hpp
+//! @file				LinuxMutex.hpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-//! @created			2014-08-11
+//! @created			2014-10-31
 //! @last-modified		2014-10-31
-//! @brief 				FreeRTOS implementation of a Mutex.
+//! @brief 				Linux implementation of a Mutex.
 //! @details
 //!						
 
@@ -15,8 +15,8 @@
 //======================================== HEADER GUARD =========================================//
 //===============================================================================================//
 
-#ifndef MOSAL_FREERTOS_MUTEX_H
-#define MOSAL_FREERTOS_MUTEX_H
+#ifndef M_OSAL_LINUX_MUTEX_H
+#define M_OSAL_LINUX_MUTEX_H
 
 //===============================================================================================//
 //==================================== FORWARD DECLARATION ======================================//
@@ -26,7 +26,7 @@ namespace MbeddedNinja
 {
 	namespace MOsal
 	{
-		class FreeRtosMutex;
+		class LinuxMutex;
 	}
 }
 
@@ -34,22 +34,15 @@ namespace MbeddedNinja
 //========================================= INCLUDES ============================================//
 //===============================================================================================//
 
-// System libraries
+//===== SYSTEM LIBRARIES =====//
 //#include <cstdint>		// int8_t, int32_t e.t.c
-//#include <cstdio>			// snprintf()
-//#include <cstdlib>		// realloc(), malloc(), free()
-//#include <iostream>		// std::cin, cout, e.t.c
+#include <mutex>			// std::mutex
 
-// User libraries
+//===== USER LIBRARIES =====//
+#include "MAssert/api/MAssertApi.hpp"
 
-#include "MAssert/api/MAssertApi.h"
-
-// FreeRTOS
-#include "FreeRTOS/Source/include/FreeRTOS.h"
-#include "FreeRTOS/Source/include/semphr.h"
-
-// User source
-#include "../../include/Mutex.h"
+//===== USER SOURCE =====//
+#include "../../include/Mutex.hpp"
 
 //===============================================================================================//
 //======================================== NAMESPACE ============================================//
@@ -63,7 +56,7 @@ namespace MbeddedNinja
 		//! @brief		A FreeRTOS implementation of a Mutex.
 		//! @details	A FreeRTOS mutex is a binary semaphore with a priority inheritance mechanism. A FreeRTOS mutex is good for protecting a shared resource. A mutex is designed to be got and released from the same thread.
 		//! @note		Inherits from Mutex. See the Mutex class for method descriptions.
-		class FreeRtosMutex : public Mutex
+		class LinuxMutex : public Mutex
 		{
 
 		public:
@@ -72,74 +65,53 @@ namespace MbeddedNinja
 			//=============================== PUBLIC METHOD DEFINITIONS ==================================//
 			//============================================================================================//
 
-			FreeRtosMutex()
+			LinuxMutex()
 			{
-				// Create mutex with FreeRTOS call
-				this->mutexHandle = xSemaphoreCreateMutex();
+				// Create mutex with std::mutex call
+				this->mutex = new std::mutex;
 
 				// Make sure the mutex was created
-				M_ASSERT(this->mutexHandle);
+				M_ASSERT(this->mutex);
 			}
 
-			~FreeRtosMutex()
+			~LinuxMutex()
 			{
-				// Handle is not null, so delete.
-				vSemaphoreDelete(this->mutexHandle);
+				// Behaviour of program is undefined if mutex is destroyed while some thread still has a lock,
+				// so be careful with this!
+				delete this->mutex;
+
+				// Set to nullptr just to be safe
+				this->mutex = nullptr;
 			}
 
 			bool Lock(float timeoutPeriodMs)
 			{
-				// For storing conversion of float into TickType_t
-				TickType_t tickTypeTimeoutPeriodInTicks;
+				// Lock the mutex
+				this->mutex->lock();
 
-				// If it less than 0, the user wants to wait indefinitely
-				if(timeoutPeriodMs < 0)
-				{
-					// Overwrite with special constant
-					// (note that the FreeRTOS macro "INCLUDE_vTaskSuspend" has to be set to 1)
-					tickTypeTimeoutPeriodInTicks = portMAX_DELAY;
-				}
-				else
-				{
-					// User has specified non-negative timeout, so convert this from ms to ticks
-					tickTypeTimeoutPeriodInTicks = (TickType_t)(timeoutPeriodMs/(float)portTICK_RATE_MS);
-
-				}
-
-				// Take the semaphore
-				if(xSemaphoreTake(this->mutexHandle, tickTypeTimeoutPeriodInTicks) == pdPASS)
-				{
-					//CyDebugUart_PutString("Mutex obtained.");
-					return true;
-				}
-				else
-				{
-					//CyDebugUart_PutString("Mutex was not obtained.");
-					return false;
-				}
+				return true;
 			}
 
 			bool Unlock()
 			{
+				// Unlock the mutex
+				this->mutex->unlock();
 
-				if(xSemaphoreGive(this->mutexHandle) == pdPASS)
-					return true;
-				else
-					return false;
+				return true;
 			}
 
 			//============================================================================================//
 			//============================== PRIVATE METHOD DEFINITIONS ==================================//
 			//============================================================================================//
+		
+			//! @brief		Pointer to mutex that is created in the constructor and destroyed in destructor.
+			std::mutex * mutex;
 
-			//! @brief		Internally saves the mutex handle assigned by the OS.
-			void * mutexHandle;
-
-		}; // class FreeRtosMutex : public Mutex
+		}; // class LinuxMutex : public Mutex
 	
-	} // namespace MOsalNs
+	} // namespace MOsal
 } // namespace MbeddedNinja
 
-#endif // #ifndef MOSAL_FREERTOS_MUTEX_H
+#endif // #ifndef M_OSAL_LINUX_MUTEX_H
 
 // EOF

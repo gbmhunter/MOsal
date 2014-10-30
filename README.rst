@@ -11,8 +11,8 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
-- Last Modified: 2014-10-30
-- Version: v3.7.6.0
+- Last Modified: 2014-10-31
+- Version: v3.8.0.0
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -141,6 +141,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.8.0.0  2014-10-31 Added a Linux implementation of a mutex and added a unit test, closes #59. Changed Mutex::Get() and Mutex::Release() to Mutex::Lock() and Mutex::Unlock(), closes #60. Moved Mutex::mutexHandle variable into the FreeRTOS implementation, closes #61.
 v3.7.6.0  2014-10-30 Renamed namespace MOsalNs to MOsal, closes #58.
 v3.7.5.1  2014-10-29 Added some additioal information to the README.
 v3.7.5.0  2014-10-29 Rewrote Osal::GetTimeMs() and associated time-related methods to return a 64-bit time, closes #55. Added Osal::GetUnixTimeMs() method, closes #56.
