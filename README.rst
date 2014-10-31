@@ -12,7 +12,7 @@ An C++ operating system abstraction layer (OSAL) for embedded systems.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - Created: 2014-08-07
 - Last Modified: 2014-10-31
-- Version: v3.8.1.0
+- Version: v3.8.1.1
 - Company: MbeddedNinja
 - Project: The Mbedded toolkit (MToolkit) project.
 - Language: C++
@@ -110,17 +110,17 @@ Basic Example Using FreeRTOS As Our Operating System
 	#include "MOsal/api/MOsalApi.hpp"
 	
 	// We are using FreeRTOS, so include the OS-sepcific FreeRTOS OSAL from port/
-	#include "MOsal/port/FreeRtosOsal.hpp"
+	#include "MOsal/port/FreeRtos/FreeRtosOsal.hpp"
 	
 	using namespace MbeddedNinja;
 	
 	int main()
 	{
 		// Create a new FreeRTOS operating system abstraction layer
-		MOsalNs::Osal * osal = new MOsalNs::FreertosOsal();
+		MOsal::Osal * osal = new MOsal::FreertosOsal();
 		
 		// Note, if I was on Linux instead, I could just of easily typed this...
-		// MOsalNs::Osal * osal = new MOsalNs::LinuxOsal();
+		// MOsal::Osal * osal = new MOsal::LinuxOsal();
 		
 		// All done! 
 		// Now we can pass the generic OSAL object to other modules
@@ -130,10 +130,47 @@ Basic Example Using FreeRTOS As Our Operating System
 		CoolModule2 * coolModule2 = new CoolModule2(osal);
 	}
 	
+Mutex
+----
+
+::
+
+	// Include the generic OSAL API
+	#include "MOsal/api/MOsalApi.hpp"
+	
+	// We are using Linux, so include the OS-sepcific Linux Mutex from "port/Linux/"
+	#include "MOsal/port/Linux/LinuxMutex.hpp"
+	
+	using namespace MbeddedNinja;
+	
+	int main()
+	{
+		// Create a Linux mutex
+		MOsal::LinuxMutex * mutex = new MOsal::LinuxMutex();
+		
+		// Note, if I was using FreeRTOS instead, I could just of easily typed this...
+		// MOsal::FreeRtosMutex * mutex = new MOsal::FreeRtosMutex();
+		
+		// Now we can pass the LinuxMutex to portable functions that accept a
+		// generic MOsal::Mutex object
+		ExampleFunction(&mutex);
+	}
+	
+	void ExampleFunction(MOsal::Mutex * mutex)
+	{
+		mutex->Lock();
+		
+		// Code which accesses shared resources can go here!
+		
+		mutex->Unlock();
+	}
+	
 FAQ
 ===
 
-Nothing here yet...
+1. I include :code:`api/MOsalApi.hpp` but I can't create any Mutex or Thread objects. 
+
+The actual creation of these kinds of objects has to be operating system specific, and therefore is not inlucded in :code:`MOsalApi.hpp`. You have to include the correct the correct port layer headers from :code:`port/`. Objects that use OS utilities in a portable manner should be passed the OS objects in their constructor (depedency injection).
 
 Changelog
 =========
@@ -141,6 +178,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v3.8.1.1  2014-10-31 Added example of a Mutex to the README, closes #57.
 v3.8.1.0  2014-10-31 Made Mutex unit test check output rather than printing it to std::cout, closes #62.
 v3.8.0.0  2014-10-31 Added a Linux implementation of a mutex and added a unit test, closes #59. Changed Mutex::Get() and Mutex::Release() to Mutex::Lock() and Mutex::Unlock(), closes #60. Moved Mutex::mutexHandle variable into the FreeRTOS implementation, closes #61.
 v3.7.6.0  2014-10-30 Renamed namespace MOsalNs to MOsal, closes #58.
